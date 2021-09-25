@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\DonoRepositoryInterface;
+use App\Repositories\DonoRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // $this->app->bind(
+        //     'App\Repositories\Contracts\DonoRepositoryInterface',
+        //     'App\Repositories\DonoRepository'
+        // );
+        $this->app->bind(DonoRepositoryInterface::class, DonoRepository::class);
     }
 }

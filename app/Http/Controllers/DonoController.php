@@ -3,11 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Requests\DonoRequest;
+use App\Services\DonoService;
+use Exception;
 
 class DonoController extends Controller
 {
+    private $donoService;
+
+    public function __construct(DonoService $donoService)
+    {
+        $this->donoService = $donoService;
+    }
+
     public function create(DonoRequest $request)
     {
-        dd($request->getParams()->all());
+        try {
+            $this->donoService->create(
+                $request->getParams()->all()
+            );
+            return response()->json([], 201);            
+        } catch(Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        }
     }
 }
