@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Requests\DonoRequest;
+
 class DonoController extends Controller
 {
-    public function create()
+    public function create(DonoRequest $request)
     {
-        die('testeste');
+        dd($request->getParams()->all());
     }
 }
