@@ -3,15 +3,32 @@
 namespace App\Entities;
 
 use App\Entities\EntitieAbstract;
+use App\ValueObjects\Telefone;
 
 class Dono extends EntitieAbstract
 {
-    public string $nome;
-    public string $telefone;
+    private string $nome;
+    private Telefone $telefone;
 
-    public function __construct(array $data)
+    public function setNome(string $nome): void
     {
-        $this->nome = $data['nome'];
-        $this->telefone = $data['telefone'];
+        $this->nome = $nome;
     }
+
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+
+    public function setTelefone(Telefone $telefone): void
+    {
+        $this->telefone = $telefone;
+    }
+
+    public function getTelefone(): string
+    {
+        return $this->telefone;
+    }
+
+
 }
