@@ -14,5 +14,8 @@
 */
 
 $router->get('/', function () use ($router) {
-    die('testeste');
+    die('ok');
 });
+
+
+$router->post('/dono', 'DonoController@create');
