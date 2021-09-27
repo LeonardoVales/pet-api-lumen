@@ -10,7 +10,7 @@ class Dono extends Model
     use HasFactory;
 
     public $incrementing = false;
-
+    protected $keyType = 'string';
     protected $table = 'dono';
 
     protected $fillable = [

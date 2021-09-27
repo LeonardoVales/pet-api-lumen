@@ -6,6 +6,7 @@ use App\Entities\Dono;
 use App\Entities\EntitieAbstract;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\Telefone;
+use Ramsey\Uuid\Uuid;
 
 class DonoService 
 {
@@ -29,6 +30,7 @@ class DonoService
     public function mapEntitie(array $data)
     {
         $this->donoEntitie = new Dono;
+        $this->donoEntitie->setId(Uuid::uuid4());
         $this->donoEntitie->setNome($data['nome']);
         $this->donoEntitie->setTelefone(new Telefone($data['telefone']));
 

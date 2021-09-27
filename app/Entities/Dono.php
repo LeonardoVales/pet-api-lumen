@@ -7,8 +7,19 @@ use App\ValueObjects\Telefone;
 
 class Dono extends EntitieAbstract
 {
+    private string $id;
     private string $nome;
     private Telefone $telefone;
+
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
     public function setNome(string $nome): void
     {

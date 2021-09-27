@@ -1,5 +1,6 @@
 <?php
 
+use Laravel\Lumen\Testing\DatabaseMigrations;
 use App\Entities\EntitieAbstract;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Repositories\DonoRepository;
@@ -8,6 +9,8 @@ use App\Models\Dono;
 
 class DonoServiceTest extends TestCase
 {
+    use DatabaseMigrations;
+
     private DonoRepositoryInterface $donoRepositoryMock;
     private array $data;
 
@@ -15,7 +18,7 @@ class DonoServiceTest extends TestCase
     {
         parent::setUp();
 
-        $teste = Dono::factory()->create();
+        $teste = Dono::factory()->make();
         dd($teste);
         
 

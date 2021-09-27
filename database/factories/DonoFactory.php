@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Dono;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Ramsey\Uuid\Uuid;
 
 class DonoFactory extends Factory
 {
@@ -22,6 +23,7 @@ class DonoFactory extends Factory
     public function definition()
     {
         return [
+            'id' => Uuid::uuid4(),
             'nome' => $this->faker->name,
             'telefone' => $this->faker->phoneNumber()
         ];
