@@ -12,10 +12,10 @@ class DonoService
     private DonoRepositoryInterface $donoRepository;
     private EntitieAbstract $donoEntitie;
 
-    public function __construct(DonoRepositoryInterface $donoRepository)
-    {
-        $this->donoRepository = $donoRepository;
-    }
+    // public function __construct(DonoRepositoryInterface $donoRepository)
+    // {
+    //     $this->donoRepository = $donoRepository;
+    // }
 
     public function create(array $data)
     {
@@ -26,7 +26,7 @@ class DonoService
         // $this->donoRepository->create($donoEntitie);
     }
 
-    private function mapEntitie(array $data)
+    public function mapEntitie(array $data)
     {
         $this->donoEntitie = new Dono;
         $this->donoEntitie->setNome($data['nome']);
