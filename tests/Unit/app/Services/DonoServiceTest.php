@@ -4,6 +4,7 @@ use App\Entities\EntitieAbstract;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Repositories\DonoRepository;
 use App\Services\DonoService;
+use App\Models\Dono;
 
 class DonoServiceTest extends TestCase
 {
@@ -13,6 +14,10 @@ class DonoServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $teste = Dono::factory()->create();
+        dd($teste);
+        
 
         $this->data = [
             'nome' => 'Leonardo Vales',

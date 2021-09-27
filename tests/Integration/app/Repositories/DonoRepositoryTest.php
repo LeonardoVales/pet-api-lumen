@@ -21,6 +21,8 @@ class DonoRepositoryTest extends TestCase
     {
         parent::setUp();
 
+     
+
         $this->donoEntitie = new EntitiesDono;
         $this->donoEntitie->setNome('Leonardo Vales');
         $this->donoEntitie->setTelefone(new Telefone('31986623642'));

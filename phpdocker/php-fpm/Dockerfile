@@ -2,6 +2,7 @@ FROM phpdockerio/php74-fpm:latest
 WORKDIR "/application"
 
 RUN apt-get update; \
+    apt install sqlite3; \
     apt-get -y --no-install-recommends install \
         git \ 
         php7.4-bcmath \ 
