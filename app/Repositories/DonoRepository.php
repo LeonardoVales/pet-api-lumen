@@ -9,6 +9,6 @@ class DonoRepository implements DonoRepositoryInterface
 {
     public function create(EntitieAbstract $entitie)
     {
-        dd($entitie);
+        return [];
     }
 }

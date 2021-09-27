@@ -7,8 +7,7 @@ use App\Services\DonoService;
 
 class DonoServiceTest extends TestCase
 {
-    private DonoService $donService;
-    // private DonoRepositoryInterface $donoRepositoryMock;
+    private DonoRepositoryInterface $donoRepositoryMock;
     private array $data;
 
     protected function setUp(): void
@@ -19,13 +18,13 @@ class DonoServiceTest extends TestCase
             'nome' => 'Leonardo Vales',
             'telefone' => '31986623642',
         ];
-        // $this->donoRepositoryMock = $this->createMock(DonoRepository::class);
+        $this->donoRepositoryMock = $this->createMock(DonoRepository::class);
         
     }
 
     public function test_deve_retornar_entidade_dono()
     {
-        $donoService = new DonoService;
+        $donoService = new DonoService($this->donoRepositoryMock);
 
         $this->assertInstanceOf(
             EntitieAbstract::class, 
