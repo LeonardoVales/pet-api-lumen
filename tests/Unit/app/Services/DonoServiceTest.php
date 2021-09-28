@@ -1,7 +1,7 @@
 <?php
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use App\Entities\EntitieAbstract;
+use App\Entities\EntitieInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Repositories\DonoRepository;
 use App\Services\DonoService;
@@ -18,8 +18,8 @@ class DonoServiceTest extends TestCase
     {
         parent::setUp();
 
-        $teste = Dono::factory()->make();
-        dd($teste);
+        // $teste = Dono::factory()->make();
+        // dd($teste);
         
 
         $this->data = [
@@ -35,7 +35,7 @@ class DonoServiceTest extends TestCase
         $donoService = new DonoService($this->donoRepositoryMock);
 
         $this->assertInstanceOf(
-            EntitieAbstract::class, 
+            EntitieInterface::class, 
             $donoService->mapEntitie($this->data)
         );
     }

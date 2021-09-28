@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Dono;
-use App\Entities\EntitieAbstract;
+use App\Entities\EntitieInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\Telefone;
 use Ramsey\Uuid\Uuid;
@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
 class DonoService 
 {
     private DonoRepositoryInterface $donoRepository;
-    private EntitieAbstract $donoEntitie;
+    private EntitieInterface $donoEntitie;
 
     public function __construct(DonoRepositoryInterface $donoRepository)
     {

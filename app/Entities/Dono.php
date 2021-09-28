@@ -2,10 +2,10 @@
 
 namespace App\Entities;
 
-use App\Entities\EntitieAbstract;
+use App\Entities\EntitieInterface;
 use App\ValueObjects\Telefone;
 
-class Dono extends EntitieAbstract
+class Dono implements EntitieInterface
 {
     private string $id;
     private string $nome;
@@ -41,5 +41,9 @@ class Dono extends EntitieAbstract
         return $this->telefone;
     }
 
+    public function toArray(): array
+    {
+        return get_object_vars($this);
+    }
 
 }

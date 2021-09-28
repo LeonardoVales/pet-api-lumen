@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Contracts;
 
-use App\Entities\EntitieAbstract;
+use App\Entities\EntitieInterface;
 
 interface DonoRepositoryInterface 
 {
-    public function create(EntitieAbstract $entitie);
+    public function create(EntitieInterface $entitie): EntitieInterface;
 }
