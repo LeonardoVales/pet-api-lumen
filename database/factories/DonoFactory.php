@@ -25,7 +25,7 @@ class DonoFactory extends Factory
         return [
             'id' => Uuid::uuid4(),
             'nome' => $this->faker->name,
-            'telefone' => $this->faker->phoneNumber()
+            'telefone' => '31986623642'
         ];
     }
 }

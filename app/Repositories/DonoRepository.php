@@ -8,10 +8,16 @@ use App\Models\Dono;
 
 class DonoRepository implements DonoRepositoryInterface
 {
-    public function create(EntitieInterface $entitie): EntitieInterface
+    public function create(EntitieInterface $entitie): Dono
     {
-        Dono::create($entitie->toArray());
+        $donoModel = new Dono;
 
-        return $entitie;
+        $donoModel->id = $entitie->getId();
+        $donoModel->nome = $entitie->getNome();
+        $donoModel->telefone = $entitie->getTelefone();
+
+        $donoModel->save();
+
+       return $donoModel;
     }
 }

@@ -26,7 +26,7 @@ class Dono implements EntitieInterface
         $this->nome = $nome;
     }
 
-    public function getNome(): string
+    public function getNome()
     {
         return $this->nome;
     }

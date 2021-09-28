@@ -5,6 +5,7 @@
 use App\Entities\Dono as EntitiesDono;
 use App\Entities\EntitieInterface;
 use App\Models\Dono;
+use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Repositories\DonoRepository;
 use App\Services\DonoService;
 use App\ValueObjects\Telefone;
@@ -18,29 +19,42 @@ class DonoRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private EntitieInterface $donoEntitie;
-    private DonoService $donoService;
+    private DonoRepositoryInterface $donoRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        // \Dotenv\Dotenv::create(base_path(), '.env.testing')->overload();
-     
 
-        $this->donoEntitie = new EntitiesDono;
-        $this->donoEntitie->setId(Uuid::uuid4());
-        $this->donoEntitie->setNome('Leonardo Vales');
-        $this->donoEntitie->setTelefone(new Telefone('31986623642'));
-
+        $this->donoRepository = new DonoRepository;
     }
 
-    public function test_create_dono_deve_retornar_instancia_da_entidade_dono()
+    public function test_deve_retornar_a_model_com_os_dados_do_dono()
     {
-        $donoRepository = new DonoRepository;
+        $donoEntitie = $this->getDonoEntitie();
+        $donoCreated = $this->donoRepository->create($donoEntitie);
+    
+        $this->assertSame($donoEntitie->getId(), $donoCreated->id);
+        $this->assertSame($donoEntitie->getNome(), $donoCreated->nome);
+        $this->assertSame($donoEntitie->getTelefone(), $donoCreated->telefone);
+    }
 
+    public function test_create_dono_deve_retornar_instancia_da_model_dono()
+    {
         $this->assertInstanceOf(
-            EntitieInterface::class, 
-            $donoRepository->create($this->donoEntitie)
+            Dono::class, 
+            $this->donoRepository->create($this->getDonoEntitie())
         );
+    }
+
+    private function getDonoEntitie(): EntitieInterface
+    {
+        $dono = Dono::factory()->make();
+
+        $donoEntitie = new EntitiesDono;
+        $donoEntitie->setId($dono->id);
+        $donoEntitie->setNome($dono->nome);
+        $donoEntitie->setTelefone(new Telefone($dono->telefone));
+
+        return $donoEntitie;
     }
 }
