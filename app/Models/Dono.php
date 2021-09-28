@@ -14,6 +14,7 @@ class Dono extends Model
     protected $table = 'dono';
 
     protected $fillable = [
+        'id',
         'nome',
         'telefone',
     ];

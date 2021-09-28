@@ -18,7 +18,7 @@ class DonoServiceTest extends TestCase
     {
         parent::setUp();
 
-        // $teste = Dono::factory()->make();
+        // $teste = Dono::factory()->create();
         // dd($teste);
         
 

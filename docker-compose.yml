@@ -18,6 +18,21 @@ services:
         ports:
             - '8081:3306'
 
+    mysql-test:
+        image: 'mysql:8.0'
+        command: --default-authentication-plugin=mysql_native_password
+        container_name: mysql-pet-api-test
+        working_dir: /application
+        volumes:
+            - '.:/application'
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+            - MYSQL_DATABASE=petapi_test
+            - MYSQL_USER=petapi_test
+            - MYSQL_PASSWORD=123456
+        ports:
+            - '8082:3306'
+
     webserver:
         image: 'nginx:alpine'
         container_name: nginx-pet-api

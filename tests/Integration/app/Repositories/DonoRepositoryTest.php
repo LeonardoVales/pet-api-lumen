@@ -8,6 +8,7 @@ use App\Models\Dono;
 use App\Repositories\DonoRepository;
 use App\Services\DonoService;
 use App\ValueObjects\Telefone;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 use Ramsey\Uuid\Uuid;
 
 // use Laravel\Lumen\Testing\TestCase;
@@ -15,13 +16,15 @@ use Ramsey\Uuid\Uuid;
 
 class DonoRepositoryTest extends TestCase
 {
+    use DatabaseMigrations;
+
     private EntitieInterface $donoEntitie;
     private DonoService $donoService;
 
     protected function setUp(): void
     {
         parent::setUp();
-
+        // \Dotenv\Dotenv::create(base_path(), '.env.testing')->overload();
      
 
         $this->donoEntitie = new EntitiesDono;
