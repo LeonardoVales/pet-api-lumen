@@ -2,7 +2,7 @@
 
 // namespace Unit\app\Repositories;
 
-use App\Entities\Dono as EntitiesDono;
+use App\Entities\Dono as EntitieDono;
 use App\Entities\EntitieInterface;
 use App\Models\Dono;
 use App\Repositories\Contracts\DonoRepositoryInterface;
@@ -32,7 +32,7 @@ class DonoRepositoryTest extends TestCase
     {
         $donoEntitie = $this->getDonoEntitie();
         $donoCreated = $this->donoRepository->create($donoEntitie);
-    
+
         $this->assertSame($donoEntitie->getId(), $donoCreated->id);
         $this->assertSame($donoEntitie->getNome(), $donoCreated->nome);
         $this->assertSame($donoEntitie->getTelefone(), $donoCreated->telefone);
@@ -50,8 +50,8 @@ class DonoRepositoryTest extends TestCase
     {
         $dono = Dono::factory()->make();
 
-        $donoEntitie = new EntitiesDono;
-        $donoEntitie->setId($dono->id);
+        $donoEntitie = new EntitieDono;
+        $donoEntitie->setId(Uuid::uuid4());
         $donoEntitie->setNome($dono->nome);
         $donoEntitie->setTelefone(new Telefone($dono->telefone));
 

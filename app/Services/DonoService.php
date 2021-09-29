@@ -18,13 +18,12 @@ class DonoService
         $this->donoRepository = $donoRepository;
     }
 
-    public function create(array $data)
+    public function create(array $data): EntitieInterface
     {
-        $dono = $this->mapEntitie($data);
-        dd($dono);
-        
-        
-        // $this->donoRepository->create($donoEntitie);
+        $donoEntitie = $this->mapEntitie($data);
+        $this->donoRepository->create($donoEntitie);
+
+        return $donoEntitie;
     }
 
     public function mapEntitie(array $data)
@@ -33,7 +32,7 @@ class DonoService
         $this->donoEntitie->setId(Uuid::uuid4());
         $this->donoEntitie->setNome($data['nome']);
         $this->donoEntitie->setTelefone(new Telefone($data['telefone']));
-
+   
         return $this->donoEntitie;
     }
 }
