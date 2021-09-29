@@ -51,7 +51,6 @@ class DonoRepositoryTest extends TestCase
         $dono = Dono::factory()->make();
 
         $donoEntitie = new EntitieDono;
-        $donoEntitie->setId(Uuid::uuid4());
         $donoEntitie->setNome($dono->nome);
         $donoEntitie->setTelefone(new Telefone($dono->telefone));
 

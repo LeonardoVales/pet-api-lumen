@@ -5,21 +5,10 @@ namespace App\Entities;
 use App\Entities\EntitieInterface;
 use App\ValueObjects\Telefone;
 
-class Dono implements EntitieInterface
+class Dono extends EntitieAbstract implements EntitieInterface
 {
-    private string $id;
     private string $nome;
     private Telefone $telefone;
-
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
 
     public function setNome(string $nome): void
     {
