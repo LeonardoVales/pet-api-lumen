@@ -15,6 +15,7 @@ RUN apt-get update; \
         php7.4-sqlite3 \ 
         php7.4-ssh2 \ 
         php7.4-xsl \
-        php7.4-mbstring; \
+        php7.4-mbstring \
+        php7.4-xdebug; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*

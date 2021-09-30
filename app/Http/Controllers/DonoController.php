@@ -19,10 +19,10 @@ class DonoController extends Controller
     public function create(DonoRequest $request): JsonResponse
     {
         try {
-            $this->donoService->create(
+            $donoCreated = $this->donoService->create(
                 $request->getParams()->all()
-            );
-        return response()->json([], 201);            
+            );            
+        return response()->json($donoCreated, 201);            
         } catch(Exception $e) {
             return response()->json(['error' => $e->getMessage()], $e->getCode());
         }

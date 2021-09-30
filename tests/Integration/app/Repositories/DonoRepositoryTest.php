@@ -1,19 +1,12 @@
 <?php
 
-// namespace Unit\app\Repositories;
-
 use App\Entities\Dono as EntitieDono;
 use App\Entities\EntitieInterface;
 use App\Models\Dono;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Repositories\DonoRepository;
-use App\Services\DonoService;
 use App\ValueObjects\Telefone;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Ramsey\Uuid\Uuid;
-
-// use Laravel\Lumen\Testing\TestCase;
-
 
 class DonoRepositoryTest extends TestCase
 {
