@@ -15,7 +15,7 @@ class Dono extends EntitieAbstract implements EntitieInterface
         $this->nome = $nome;
     }
 
-    public function getNome()
+    public function getNome(): string
     {
         return $this->nome;
     }

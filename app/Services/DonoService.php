@@ -6,7 +6,6 @@ use App\Entities\Dono;
 use App\Entities\EntitieInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\Telefone;
-use Ramsey\Uuid\Uuid;
 
 class DonoService 
 {
