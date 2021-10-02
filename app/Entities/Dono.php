@@ -32,7 +32,13 @@ class Dono extends EntitieAbstract implements EntitieInterface
 
     public function toArray(): array
     {
-        return get_object_vars($this);
+        $donoArray = get_object_vars($this);
+        unset($donoArray['telefone']);
+        
+        return array_merge(
+            ['telefone' => $this->getTelefone()],
+            $donoArray
+        );
     }
 
 }

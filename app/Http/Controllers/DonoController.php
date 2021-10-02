@@ -21,10 +21,11 @@ class DonoController extends Controller
         try {
             $donoCreated = $this->donoService->create(
                 $request->getParams()->all()
-            );            
-        return response()->json($donoCreated, 201);            
+            );    
+            
+        return response()->json($donoCreated->toArray(), 201);            
         } catch(Exception $e) {
-            return response()->json(['error' => $e->getMessage()], $e->getCode());
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 }

@@ -16,7 +16,7 @@ services:
             - MYSQL_USER=petapi
             - MYSQL_PASSWORD=123456
         ports:
-            - '8081:3306'
+            - '3306:3306'
 
     mysql-test:
         image: 'mysql:8.0'
