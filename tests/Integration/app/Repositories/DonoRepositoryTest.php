@@ -18,7 +18,8 @@ class DonoRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->donoRepository = new DonoRepository;
+        $dono = new Dono;
+        $this->donoRepository = new DonoRepository($dono);
     }
 
     public function test_deve_retornar_a_model_com_os_dados_do_dono()
