@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Entities\EntitieInterface;
+use App\Entities\EntityInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Models\Dono;
 
 class DonoRepository implements DonoRepositoryInterface
 {
-    public function create(EntitieInterface $entitie): Dono
+    public function create(EntityInterface $entitie): Dono
     {
         $donoModel = new Dono;
 

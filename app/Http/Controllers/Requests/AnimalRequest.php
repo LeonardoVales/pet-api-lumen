@@ -14,5 +14,7 @@ class AnimalRequest extends Controller
                 'nome' => 'required',                
             ]
         );
+
+        parent::__construct($request);
     }
 }

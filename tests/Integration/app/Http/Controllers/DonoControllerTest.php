@@ -23,17 +23,7 @@ class DonoControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->donoModel = Dono::factory()->make();
-
-        // $this->donoEntitie = new DonoEntitie;
-        // $this->donoEntitie->setNome($this->donoModel->nome);
-        // $this->donoEntitie->setTelefone(new Telefone($this->donoModel->telefone));
-        
-        // $this->donoService = $this->createMock(DonoService::class);
-        // $this->donoService->method('mapEntitie')->willReturn($this->donoEntitie);
-        // $this->donoService->method('create')->willReturn($this->donoEntitie);
-
-        
+        $this->donoModel = Dono::factory()->make();        
     }
 
     public function test_create_deve_retornar_status_201()

@@ -2,10 +2,10 @@
 
 namespace App\Entities;
 
-use App\Entities\EntitieInterface;
+use App\Entities\EntityInterface;
 use App\ValueObjects\Especie;
 
-class Animal extends EntitieAbstract implements EntitieInterface
+class Animal extends EntityAbstract implements EntityInterface
 {
     private string $nome;
     private int $idade;

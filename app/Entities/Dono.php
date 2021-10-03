@@ -2,10 +2,10 @@
 
 namespace App\Entities;
 
-use App\Entities\EntitieInterface;
+use App\Entities\EntityInterface;
 use App\ValueObjects\Telefone;
 
-class Dono extends EntitieAbstract implements EntitieInterface
+class Dono extends EntityAbstract implements EntityInterface
 {
     private string $nome;
     private Telefone $telefone;

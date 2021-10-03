@@ -1,7 +1,7 @@
 <?php
 
-use App\Entities\Dono as EntitieDono;
-use App\Entities\EntitieInterface;
+use App\Entities\Dono as EntityDono;
+use App\Entities\EntityInterface;
 use App\Models\Dono;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Repositories\DonoRepository;
@@ -23,30 +23,30 @@ class DonoRepositoryTest extends TestCase
 
     public function test_deve_retornar_a_model_com_os_dados_do_dono()
     {
-        $donoEntitie = $this->getDonoEntitie();
-        $donoCreated = $this->donoRepository->create($donoEntitie);
+        $donoEntity = $this->getDonoEntity();
+        $donoCreated = $this->donoRepository->create($donoEntity);
 
-        $this->assertSame($donoEntitie->getId(), $donoCreated->id);
-        $this->assertSame($donoEntitie->getNome(), $donoCreated->nome);
-        $this->assertSame($donoEntitie->getTelefone(), $donoCreated->telefone);
+        $this->assertSame($donoEntity->getId(), $donoCreated->id);
+        $this->assertSame($donoEntity->getNome(), $donoCreated->nome);
+        $this->assertSame($donoEntity->getTelefone(), $donoCreated->telefone);
     }
 
     public function test_create_dono_deve_retornar_instancia_da_model_dono()
     {
         $this->assertInstanceOf(
             Dono::class, 
-            $this->donoRepository->create($this->getDonoEntitie())
+            $this->donoRepository->create($this->getDonoEntity())
         );
     }
 
-    private function getDonoEntitie(): EntitieInterface
+    private function getDonoEntity(): EntityInterface
     {
         $dono = Dono::factory()->make();
 
-        $donoEntitie = new EntitieDono;
-        $donoEntitie->setNome($dono->nome);
-        $donoEntitie->setTelefone(new Telefone($dono->telefone));
+        $donoEntity = new EntityDono;
+        $donoEntity->setNome($dono->nome);
+        $donoEntity->setTelefone(new Telefone($dono->telefone));
 
-        return $donoEntitie;
+        return $donoEntity;
     }
 }

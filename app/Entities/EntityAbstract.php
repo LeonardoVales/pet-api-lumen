@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use Ramsey\Uuid\Uuid;
 
-class EntitieAbstract
+class EntityAbstract
 {
     protected string $id;
 
