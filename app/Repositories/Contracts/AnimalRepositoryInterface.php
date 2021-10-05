@@ -2,10 +2,9 @@
 
 namespace App\Repositories\Contracts;
 
-use App\Entities\EntityInterface;
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\EntityAbstract;
 
 interface AnimalRepositoryInterface
 {
-    public function create(EntityInterface $entity): Model;
+    public function create(EntityAbstract $entity): EntityAbstract;
 }

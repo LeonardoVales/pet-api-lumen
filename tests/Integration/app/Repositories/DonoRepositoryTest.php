@@ -1,12 +1,9 @@
 <?php
 
-use App\Entities\Dono as EntityDono;
+
 use App\Entities\EntityAbstract;
-use App\Entities\EntityInterface;
 use App\Models\Dono;
 use App\Repositories\Contracts\DonoRepositoryInterface;
-use App\Repositories\DonoRepository;
-use App\ValueObjects\Telefone;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class DonoRepositoryTest extends TestCase

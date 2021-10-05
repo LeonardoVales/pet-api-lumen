@@ -2,15 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Entities\EntityInterface;
+use App\Entities\EntityAbstract;
+use App\Models\Animal;
 use App\Repositories\Contracts\AbstractRepository;
 use App\Repositories\Contracts\AnimalRepositoryInterface;
-use App\Models\Animal;
 
 class AnimalRepository extends AbstractRepository implements AnimalRepositoryInterface
 {
-    public function create(EntityInterface $entity): Animal
+    public function __construct(Animal $model)
     {
-        return $this->model::create($entity->toArray());        
+        parent::__construct($model);
+    }
+
+    public function create(EntityAbstract $entity): EntityAbstract
+    {
+        $animalCreated = $this->model::create($entity->jsonSerialize());
+        
+        return $animalCreated->getEntity();
     }
 }
