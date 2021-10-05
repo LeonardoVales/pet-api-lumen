@@ -5,7 +5,7 @@ namespace App\Entities;
 use App\Entities\EntityInterface;
 use App\ValueObjects\Telefone;
 
-class Dono extends EntityAbstract implements EntityInterface
+class Dono extends EntityAbstract
 {
     private string $nome;
     private Telefone $telefone;
@@ -31,17 +31,6 @@ class Dono extends EntityAbstract implements EntityInterface
     public function getTelefone(): string
     {
         return $this->telefone;
-    }
-
-    public function toArray(): array
-    {
-        $donoArray = get_object_vars($this);
-        unset($donoArray['telefone']);
-        
-        return array_merge(
-            ['telefone' => $this->getTelefone()],
-            $donoArray
-        );
     }
 
     public function jsonSerialize(): array

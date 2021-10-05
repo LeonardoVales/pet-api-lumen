@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Entities\EntityAbstract;
-use App\Entities\EntityInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Models\Dono;
 use App\Repositories\Contracts\AbstractRepository;
@@ -15,7 +14,7 @@ class DonoRepository extends AbstractRepository implements DonoRepositoryInterfa
         parent::__construct($model);
     }
 
-    public function create(EntityInterface $entity): EntityAbstract
+    public function create(EntityAbstract $entity): EntityAbstract
     {        
         $donoModel =  $this->model::create($entity->jsonSerialize());  
         
