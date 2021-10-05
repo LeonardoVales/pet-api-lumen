@@ -23,7 +23,7 @@ class DonoController extends Controller
                 $request->getParams()->all()
             );    
         
-        return response()->json($donoCreated->toArray(), 201);            
+        return response()->json($donoCreated->jsonSerialize(), 201);            
         } catch(Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }

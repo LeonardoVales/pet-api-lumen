@@ -7,6 +7,7 @@ use App\Repositories\DonoRepository;
 use App\Services\DonoService;
 use App\Models\Dono;
 use App\Entities\Dono as DonoEntity;
+use App\Entities\EntityAbstract;
 use App\ValueObjects\Telefone;
 
 class DonoServiceTest extends TestCase
@@ -23,16 +24,13 @@ class DonoServiceTest extends TestCase
     {
         parent::setUp();
 
-        $this->donoModel = Dono::factory()->make();
-
+        $this->donoModel = Dono::factory()->makeOne();
+        
         $this->donoRepositoryMock = $this->createMock(DonoRepository::class);
-        $this->donoRepositoryMock->method('create')->willReturn($this->donoModel);
+        $this->donoRepositoryMock->method('create')->willReturn($this->donoModel->getEntity());
 
         $this->donoService = new DonoService($this->donoRepositoryMock);
-        $this->donoEntity = $this->donoService->mapEntitie([
-            'nome' => $this->donoModel->nome,
-            'telefone' => $this->donoModel->telefone,
-        ]);
+
     }
 
     public function test_create_deve_retornar_instancia_entidade_dono()
@@ -41,9 +39,9 @@ class DonoServiceTest extends TestCase
             'nome' => $this->donoModel->nome,
             'telefone' => $this->donoModel->telefone
         ]);
-
+        
         $this->assertInstanceOf(
-            EntityInterface::class,
+            EntityAbstract::class,
             $donoEntity
         );
 
@@ -57,14 +55,4 @@ class DonoServiceTest extends TestCase
             $donoEntity->getTelefone()
         );
     }
-
-    public function test_map_entitie_deve_retornar_entidade_dono()
-    {
-        $this->assertInstanceOf(
-            EntityInterface::class, 
-            $this->donoEntity
-        );
-    }
-
-
 }

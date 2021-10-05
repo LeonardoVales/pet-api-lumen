@@ -2,16 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\Dono as EntityDono;
 
-class Dono extends Model
+class Dono extends AbstractModel
 {
-    use HasFactory;
-
-    public $incrementing = false;
-    protected $keyType = 'string';
     protected $table = 'dono';
+    public string $entityClass = EntityDono::class;
 
     protected $fillable = [
         'id',

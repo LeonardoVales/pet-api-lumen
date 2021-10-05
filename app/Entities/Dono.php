@@ -10,9 +10,19 @@ class Dono extends EntityAbstract implements EntityInterface
     private string $nome;
     private Telefone $telefone;
 
-    public function setNome(string $nome): void
+    // public function __construct(
+    //     protected ?string $id = null,
+    //     private string $nome,
+    //     private Telefone $telefone
+    // )
+    // {
+        
+    // }
+
+    public function setNome(string $nome)
     {
         $this->nome = $nome;
+        // return $this;
     }
 
     public function getNome(): string
@@ -20,9 +30,11 @@ class Dono extends EntityAbstract implements EntityInterface
         return $this->nome;
     }
 
-    public function setTelefone(Telefone $telefone): void
+    public function setTelefone(Telefone $telefone)
     {
+        
         $this->telefone = $telefone;
+        // return $this;
     }
 
     public function getTelefone(): string
@@ -39,6 +51,38 @@ class Dono extends EntityAbstract implements EntityInterface
             ['telefone' => $this->getTelefone()],
             $donoArray
         );
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id ?? null,
+            'nome' => $this->getNome(),
+            'telefone' => $this->getTelefone()
+        ];
+    }    
+
+    public static function fromArray(array $params)
+    {
+        // return new self(
+        //     id: $params['id'] ?? null,
+        //     nome: $params['nome'],
+        //     telefone: new Telefone($params['telefone'])
+        // );
+        
+        $entity = new self();
+        
+        if (isset($params['id'])) {            
+            $entity->setId($params['id']);
+        }
+        
+        $entity->setNome($params['nome']);
+        $entity->setTelefone(new Telefone($params['telefone']));
+
+        return $entity;
+
+        // return new self()->setNome($params['nome']);
+                
     }
 
 }

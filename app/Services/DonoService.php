@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Dono;
+use App\Entities\EntityAbstract;
 use App\Entities\EntityInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\Telefone;
@@ -17,21 +18,22 @@ class DonoService
         $this->donoRepository = $donoRepository;
     }
 
-    public function create(array $data): EntityInterface
+    public function create(array $data): EntityAbstract
     {
-        $donoEntity = $this->mapEntitie($data);
-        $this->donoRepository->create($donoEntity);
+        $donoEntity = new Dono;
+        $donoEntity->setNome($data['nome']);
+        $donoEntity->setTelefone(new Telefone($data['telefone']));
 
-        return $donoEntity;
+        return $this->donoRepository->create($donoEntity);        
     }
 
-    public function mapEntitie(array $data)
-    {
-        $this->donoEntity = new Dono;
+    // public function mapEntitie(array $data)
+    // {
+    //     $this->donoEntity = new Dono;
 
-        $this->donoEntity->setNome($data['nome']);
-        $this->donoEntity->setTelefone(new Telefone($data['telefone']));
+    //     $this->donoEntity->setNome($data['nome']);
+    //     $this->donoEntity->setTelefone(new Telefone($data['telefone']));
    
-        return $this->donoEntity;
-    }
+    //     return $this->donoEntity;
+    // }
 }
