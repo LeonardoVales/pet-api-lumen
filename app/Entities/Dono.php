@@ -10,15 +10,6 @@ class Dono extends EntityAbstract implements EntityInterface
     private string $nome;
     private Telefone $telefone;
 
-    // public function __construct(
-    //     protected ?string $id = null,
-    //     private string $nome,
-    //     private Telefone $telefone
-    // )
-    // {
-        
-    // }
-
     public function setNome(string $nome)
     {
         $this->nome = $nome;
@@ -64,12 +55,6 @@ class Dono extends EntityAbstract implements EntityInterface
 
     public static function fromArray(array $params)
     {
-        // return new self(
-        //     id: $params['id'] ?? null,
-        //     nome: $params['nome'],
-        //     telefone: new Telefone($params['telefone'])
-        // );
-        
         $entity = new self();
         
         if (isset($params['id'])) {            
@@ -79,10 +64,7 @@ class Dono extends EntityAbstract implements EntityInterface
         $entity->setNome($params['nome']);
         $entity->setTelefone(new Telefone($params['telefone']));
 
-        return $entity;
-
-        // return new self()->setNome($params['nome']);
-                
+        return $entity;                
     }
 
 }
