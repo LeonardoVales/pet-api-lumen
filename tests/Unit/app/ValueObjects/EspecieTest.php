@@ -10,4 +10,11 @@ class EspecieTest extends TestCase
 
         new Especie('Nelore');
     }
+
+    public function test_deve_ser_string()
+    {
+        $especie = new Especie('Gato');
+
+        $this->assertIsString($especie->__toString());        
+    }
 }

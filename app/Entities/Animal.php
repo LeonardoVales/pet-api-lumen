@@ -63,15 +63,35 @@ class Animal extends EntityAbstract
         return $this->id_dono;
     }
 
-    public function toArray(): array
+    public function jsonSerialize(): array
     {
-        $animalArray = get_object_vars($this);
-        unset($animalArray['especie']);
-
-        return array_merge(
-            ['especie' => $this->getEspecie],
-            $animalArray
-        );
+        return [
+            'id' => $this->id ?? null,
+            'nome' => $this->getNome(),
+            'idade' => $this->getIdade(),
+            'especie' => $this->getEspecie(),
+            'raca' => $this->getRaca(),
+            'id_dono' => $this->getIdDono(),
+        ];
     }
+
+    public static function fromArray(array $params)
+    {
+        $entity = new self();
+
+        if (isset($params['id'])) {
+            $entity->setId($params['id']);
+        }
+
+        $entity->setNome($params['nome']);
+        $entity->setIdade($params['idade']);
+        $entity->setEspecie(new Especie($params['especie']));
+        $entity->setRaca($params['raca']);
+        $entity->setIdDono($params['id_dono']);
+
+        return $entity;
+    }
+
+
 
 }

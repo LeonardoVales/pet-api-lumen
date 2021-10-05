@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use App\Entities\Animal as EntityAnimal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Animal extends Model
+// use Ramsey\Collection\Map\AbstractMap;
+
+class Animal extends AbstractModel
 {
     use HasFactory;
 
-    public $incrementing = false;
-    protected $keyType = 'string';
     protected $table = 'animal';
+    public string $entityClass = EntityAnimal::class;
 
     protected $fillable = [
         'id',

@@ -13,6 +13,7 @@ class DonoTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        
         $this->id = Uuid::uuid4();
         $this->nome = 'Vales';
         $this->telefone = '31986623642';

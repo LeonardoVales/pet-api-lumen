@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use Ramsey\Uuid\Uuid;
 
-class EntityAbstract
+abstract class EntityAbstract
 {
     protected ?string $id;
     // protected ?string $created_at;
@@ -39,4 +39,6 @@ class EntityAbstract
     // {
     //     return $this->updated_at;
     // }
+
+    
 }

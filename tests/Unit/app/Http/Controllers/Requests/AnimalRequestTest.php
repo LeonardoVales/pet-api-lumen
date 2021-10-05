@@ -16,8 +16,8 @@ class AnimalRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->animalModel = Animal::factory()->make();
-        
+        $this->animalModel = Animal::factory()->makeOne();
+
         $this->request = new Request($this->animalModel->toArray());
 
     }
