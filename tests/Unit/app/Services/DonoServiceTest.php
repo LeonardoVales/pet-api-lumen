@@ -1,14 +1,12 @@
 <?php
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use App\Entities\EntityInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Repositories\DonoRepository;
 use App\Services\DonoService;
 use App\Models\Dono;
 use App\Entities\Dono as DonoEntity;
 use App\Entities\EntityAbstract;
-use App\ValueObjects\Telefone;
 
 class DonoServiceTest extends TestCase
 {

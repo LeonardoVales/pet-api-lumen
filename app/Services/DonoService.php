@@ -11,7 +11,6 @@ use App\ValueObjects\Telefone;
 class DonoService 
 {
     private DonoRepositoryInterface $donoRepository;
-    private EntityInterface $donoEntity;
 
     public function __construct(DonoRepositoryInterface $donoRepository)
     {
@@ -27,13 +26,4 @@ class DonoService
         return $this->donoRepository->create($donoEntity);        
     }
 
-    // public function mapEntitie(array $data)
-    // {
-    //     $this->donoEntity = new Dono;
-
-    //     $this->donoEntity->setNome($data['nome']);
-    //     $this->donoEntity->setTelefone(new Telefone($data['telefone']));
-   
-    //     return $this->donoEntity;
-    // }
 }
