@@ -27,7 +27,7 @@ class AnimalRepositoryTest extends TestCase
                 
     }
 
-    public function test_deve_retornar_a_entidade_com_os_dados_do_animal()
+    public function test_create_deve_retornar_a_entidade_com_os_dados_do_animal()
     {
         
         $animalModel = Animal::factory()->makeOne();
@@ -45,11 +45,9 @@ class AnimalRepositoryTest extends TestCase
 
     }
 
-    public function test_deve_retornar_instancia_da_model_animal()
+    public function test_create_deve_retornar_instancia_da_model_animal()
     {
-        $animalModel = Animal::factory()->makeOne();
-        $animalEntity = $animalModel->getEntity();
-        $animalEntity->setIdDono($this->donoEntity->getId());
+        $animalEntity = $this->getFakeAnimalEntity();
         
         $animalCreated = $this->animalRepository->create($animalEntity);
 
@@ -57,5 +55,45 @@ class AnimalRepositoryTest extends TestCase
             EntityAbstract::class,
             $animalCreated
         );
+    }
+
+    public function test_deve_atualizar_os_dados_do_animal()
+    {
+        $animalEntity = $this->getFakeAnimalEntity();
+        
+        $animalCreatedOld = $this->animalRepository->create($animalEntity);
+        
+        $animalForUpdate = $this->getFakeAnimalEntity();
+        $animalForUpdate->setId($animalCreatedOld->getId());
+
+        $animalUpdated = $this->animalRepository->update($animalForUpdate);
+        
+        $this->assertEquals($animalUpdated->getId(), $animalCreatedOld->getId());
+        $this->assertEquals($animalUpdated->getIdDono(), $animalCreatedOld->getIdDono());
+        $this->assertNotEquals($animalUpdated->getNome(), $animalCreatedOld->getNome());
+        
+    }
+
+    public function teste_update_deve_retornar_entidade_animal()
+    {
+        $animalEntity = $this->getFakeAnimalEntity();
+        
+        $animalCreatedOld = $this->animalRepository->create($animalEntity);
+        
+        $animalForUpdate = $this->getFakeAnimalEntity();
+        $animalForUpdate->setId($animalCreatedOld->getId());
+
+        $animalUpdated = $this->animalRepository->update($animalForUpdate);
+
+        $this->assertInstanceOf(EntityAbstract::class, $animalUpdated);
+    }
+
+    public function getFakeAnimalEntity(): EntityAbstract
+    {
+        $animalModel = Animal::factory()->makeOne();
+        $animalEntity = $animalModel->getEntity();
+        $animalEntity->setIdDono($this->donoEntity->getId());
+
+        return $animalEntity;
     }
 }
