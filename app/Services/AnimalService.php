@@ -12,8 +12,8 @@ class AnimalService
     private AnimalRepositoryInterface $animalRepository;
 
     public function __construct(AnimalRepositoryInterface $animalRepository)
-    {
-        $this->animalRepository = $animalRepository;
+    {        
+        $this->animalRepository = $animalRepository;        
     }
 
     public function create(array $data): EntityAbstract

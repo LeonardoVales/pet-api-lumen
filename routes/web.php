@@ -19,3 +19,5 @@ $router->get('/', function () use ($router) {
 
 
 $router->post('/dono', 'DonoController@create');
+
+$router->post('/animal', 'AnimalController@create');

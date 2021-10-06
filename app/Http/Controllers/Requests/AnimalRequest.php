@@ -11,7 +11,11 @@ class AnimalRequest extends Controller
     {
         $this->validate(
             $request, [
-                'nome' => 'required',                
+                'nome' => 'required',
+                'idade' => 'required',
+                'especie' => 'required',
+                'raca' => 'required',
+                'id_dono' => 'required'              
             ]
         );
 

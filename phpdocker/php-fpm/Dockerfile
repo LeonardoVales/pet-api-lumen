@@ -19,3 +19,12 @@ RUN apt-get update; \
         php7.4-xdebug; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+
+# Atualizar permissões de log em arquivo
+RUN mkdir -p /storage/logs \
+    && rm -f /storage/logs/app.log \
+    && chmod -R 755 /storage \
+    && chown -R www-data:www-data /app/storage
+RUN touch /storage/logs/app.log \
+    && chown -R www-data: /storage
