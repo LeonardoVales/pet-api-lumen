@@ -20,4 +20,13 @@ class AnimalRepository extends AbstractRepository implements AnimalRepositoryInt
         
         return $animalCreated->getEntity();
     }
+
+    public function update(EntityAbstract $entity): EntityAbstract
+    {
+        $model = $this->findModel($entity->getId());
+        $model->fill($entity->jsonSerialize());
+        $model->saveOrFail();
+
+        return $model->getEntity();
+    }
 }

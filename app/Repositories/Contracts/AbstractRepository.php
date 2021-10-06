@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Entities\EntityAbstract;
+use App\Models\AbstractModel;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRepository
@@ -11,5 +13,25 @@ abstract class AbstractRepository
     public function __construct(Model $model)
     {
         $this->model = $model;
+    }
+
+    public function findModel(string $id): ?AbstractModel
+    {
+        $model = $this->model::find($id);
+        if (!$model) {
+            return null;
+        }
+
+        return $model;
+    }
+
+    public function findEntity(string $id): ?EntityAbstract
+    {
+        $model = $this->findModel($id);
+        if ($model) {
+            return null;
+        }
+
+        return $model->getEntity();
     }
 }
