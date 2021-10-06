@@ -4,26 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Requests\AnimalRequest;
 use App\Services\AnimalService;
+use InvalidArgumentException;
 
 class AnimalController extends Controller
 {
-    private $service;
+    private $animalService;
 
-    public function __construct(AnimalService $animalService)
+    public function __construct(AnimalService $service)
     {        
-        $this->service = $animalService;
+        $this->animalService = $service;
     }
 
     public function create(AnimalRequest $request)
     {        
         try {
-            $animalCreated = $this->service->create(
+            $animalCreated = $this->animalService->create(
                 $request->getParams()->all()
             );
             
             return response()->json($animalCreated->jsonSerialize(), 201); 
-        } catch(\Exception $e) {
-            
+        } catch(InvalidArgumentException $e) {            
             return response()->json(['error' => $e->getMessage()]);
         }
     }
