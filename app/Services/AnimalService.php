@@ -50,6 +50,15 @@ class AnimalService
         return $this->animalRepository->update($animal);
     }
 
+    public function delete(string $id): bool
+    {
+        if (!$this->animalRepository->findModel($id)) {
+            throw new InvalidArgumentException('O animal não foi encontrado');
+        }
+        
+        return $this->animalRepository->delete($id);
+    }
+
     private function mapEntity(array $data): EntityAbstract
     {
         $animal = new Animal;

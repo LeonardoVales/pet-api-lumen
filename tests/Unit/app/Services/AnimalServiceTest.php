@@ -13,8 +13,6 @@ use App\Services\AnimalService;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Ramsey\Uuid\Uuid;
 use InvalidArgumentException;
-use Ramsey\Uuid\Nonstandard\UuidBuilder;
-use Ramsey\Uuid\UuidInterface;
 use TestCase;
 
 class AnimalServiceTest extends TestCase
@@ -44,6 +42,7 @@ class AnimalServiceTest extends TestCase
         $this->animalRepository = $this->createMock(AnimalRepository::class);
         $this->animalRepository->method('create')->willReturn($this->animalEntity);
         $this->animalRepository->method('update')->willReturn($this->animalEntity);
+        $this->animalRepository->method('delete')->willReturn(true);
 
         $this->donoRepositoryMock = $this->createMock(DonoRepository::class);        
        
@@ -153,5 +152,20 @@ class AnimalServiceTest extends TestCase
             $this->animalEntity->getIdDono(),
             $animalCreated->getIdDono()
         );
+    }
+
+    public function test_deve_retornar_excecao_se_o_animal_nao_existir_ao_deletar()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('O animal não foi encontrado');       
+
+        $this->animalRepository->method('findModel')->willReturn(null);
+
+        $animalService = new AnimalService(
+            $this->animalRepository, 
+            $this->donoRepositoryMock
+        );
+        
+        $animalService->delete('99999999');
     }
 }
