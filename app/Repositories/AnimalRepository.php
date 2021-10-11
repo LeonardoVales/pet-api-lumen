@@ -29,4 +29,9 @@ class AnimalRepository extends AbstractRepository implements AnimalRepositoryInt
 
         return $model->getEntity();
     }
+
+    public function delete(string $id): bool
+    {
+        return parent::deleteById($id);
+    }
 }

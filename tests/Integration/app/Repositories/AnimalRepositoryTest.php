@@ -88,6 +88,34 @@ class AnimalRepositoryTest extends TestCase
         $this->assertInstanceOf(EntityAbstract::class, $animalUpdated);
     }
 
+    public function test_deve_retornar_true_ao_deletar()
+    {
+        $animalModel = Animal::factory()->create([
+            'id_dono' => $this->donoEntity->getId()
+        ]);
+        $animalEntity = $animalModel->getEntity();
+        
+        $this->assertTrue(
+            $this->animalRepository->delete($animalEntity->getId())
+        );
+        
+    }
+
+    public function test_soft_delete()
+    {
+        $animalModel = Animal::factory()->create([
+            'id_dono' => $this->donoEntity->getId()
+        ]);
+        $animalEntity = $animalModel->getEntity();
+
+        $this->animalRepository->delete($animalEntity->getId());
+
+        $this->notSeeInDatabase('animal',[
+            'id' => $animalEntity->getId(),
+            'deleted_at' => null
+        ]);
+    }
+
     public function getFakeAnimalEntity(): EntityAbstract
     {
         $animalModel = Animal::factory()->makeOne();

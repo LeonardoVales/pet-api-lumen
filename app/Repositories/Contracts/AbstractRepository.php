@@ -34,4 +34,13 @@ abstract class AbstractRepository
         
         return $model->getEntity();
     }
+
+    protected function deleteById($id): bool
+    {
+        $model = $this->findModel($id);
+        if (!$model) {
+            return false;
+        }
+        return $model->delete();
+    }
 }
