@@ -26,7 +26,7 @@ class AnimalService
     public function create(array $data): EntityAbstract
     {
         $animal = $this->mapEntity($data);
-        
+                
         if (!$this->donoRepository->findEntity($animal->getIdDono())) {
             throw new InvalidArgumentException('O dono do animal não foi encontrado');
         }

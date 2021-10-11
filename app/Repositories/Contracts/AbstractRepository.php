@@ -27,11 +27,11 @@ abstract class AbstractRepository
 
     public function findEntity(string $id): ?EntityAbstract
     {
-        $model = $this->findModel($id);
-        if ($model) {
+        $model = $this->findModel($id);                
+        if (!$model) {
             return null;
         }
-
+        
         return $model->getEntity();
     }
 }
