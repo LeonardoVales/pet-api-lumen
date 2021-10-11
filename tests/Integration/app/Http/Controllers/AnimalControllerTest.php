@@ -57,5 +57,28 @@ class AnimalControllerTest extends TestCase
             '/animal/'.$animal->id, 
             $this->animalEntity->jsonSerialize()
         );
+
+        $request->assertResponseStatus(204);
+    }
+
+    public function test_deve_atualizar_os_dados_do_animal() 
+    {
+        $donoModel = Dono::factory()->create();
+        $animal = Animal::factory()->create([
+            'id_dono' => $donoModel->id
+        ]);
+
+        $request = $this->put(
+            '/animal/'.$animal->id, 
+            $this->animalEntity->jsonSerialize()
+        );
+
+        $request->seeInDatabase('animal', [
+            'nome' => $this->animalEntity->getNome(),
+            'idade' => $this->animalEntity->getIdade(),
+            'especie' => $this->animalEntity->getEspecie(),
+            'raca' => $this->animalEntity->getRaca(),
+            'id_dono' => $this->animalEntity->getIdDono()
+        ]);
     }
 }

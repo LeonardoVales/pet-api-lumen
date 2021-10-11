@@ -27,4 +27,17 @@ class AnimalController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
+
+    public function update(AnimalRequest $request, $id)
+    {
+        try {
+            $this->animalService->update(
+                $request->getParams()->all(),
+                $id
+            );
+            return response()->json([], 204); 
+        } catch(InvalidArgumentException $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
 }
