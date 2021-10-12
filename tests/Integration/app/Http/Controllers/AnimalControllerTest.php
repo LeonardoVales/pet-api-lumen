@@ -81,4 +81,20 @@ class AnimalControllerTest extends TestCase
             'id_dono' => $this->animalEntity->getIdDono()
         ]);
     }
+
+    public function test_deve_deletar_o_animal()
+    {
+        $donoModel = Dono::factory()->create();
+        $animal = Animal::factory()->create([
+            'id_dono' => $donoModel->id
+        ]);
+
+        $request = $this->delete('/animal/'.$animal->id);
+
+        $request->assertResponseStatus(204);
+        $request->notSeeInDatabase('animal', [
+            'id' => $animal->id,
+            'deleted_at' => null
+        ]);
+    }    
 }

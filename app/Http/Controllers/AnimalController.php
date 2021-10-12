@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Requests\AnimalRequest;
 use App\Services\AnimalService;
 use InvalidArgumentException;
+use Illuminate\Http\JsonResponse;
 
 class AnimalController extends Controller
 {
@@ -35,6 +36,17 @@ class AnimalController extends Controller
                 $request->getParams()->all(),
                 $id
             );
+            return response()->json([], 204); 
+        } catch(InvalidArgumentException $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function delete(string $id): JsonResponse
+    {
+        try {
+            $this->animalService->delete($id);
+            
             return response()->json([], 204); 
         } catch(InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()]);
