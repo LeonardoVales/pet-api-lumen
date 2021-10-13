@@ -4,6 +4,7 @@ namespace App\Repositories\Contracts;
 
 use App\Entities\EntityAbstract;
 use App\Models\AbstractModel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRepository
@@ -42,5 +43,17 @@ abstract class AbstractRepository
             return false;
         }
         return $model->delete();
+    }
+
+    protected function findAll(): Collection
+    {
+        return $this->model->all();
+    }
+
+    protected function findAllWithRelationships(array $relationships): Collection
+    {
+        return $this->model
+            ->with($relationships)
+            ->get();
     }
 }

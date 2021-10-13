@@ -24,6 +24,8 @@ class AnimalRepositoryTest extends TestCase
 
         $donoModel = Dono::factory()->create();
         $this->donoEntity = $donoModel->getEntity();
+
+        // $this->createMultAnimals();
                 
     }
 
@@ -116,7 +118,29 @@ class AnimalRepositoryTest extends TestCase
         ]);
     }
 
-    public function getFakeAnimalEntity(): EntityAbstract
+    public function test_deve_listar_todos_os_animais()
+    {
+        Animal::factory()->count(15)->create([
+            'id_dono' => $this->donoEntity->getId()
+        ]);
+        
+        $animais = $this->animalRepository->all();
+
+        $this->assertCount(15, $animais);         
+    }
+
+    public function test_deve_listar_todos_os_animais_com_seus_donos()
+    {
+        Animal::factory()->count(1)->create([
+            'id_dono' => $this->donoEntity->getId()
+        ]);
+
+        $animais = $this->animalRepository->all();
+        
+        $this->assertInstanceOf(Dono::class, $animais[0]->dono);        
+    }
+
+    private function getFakeAnimalEntity(): EntityAbstract
     {
         $animalModel = Animal::factory()->makeOne();
         $animalEntity = $animalModel->getEntity();

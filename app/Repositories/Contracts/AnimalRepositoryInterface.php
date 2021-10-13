@@ -3,6 +3,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Entities\EntityAbstract;
+use Illuminate\Database\Eloquent\Collection;
 
 interface AnimalRepositoryInterface
 {
@@ -11,4 +12,6 @@ interface AnimalRepositoryInterface
     public function update(EntityAbstract $entity): EntityAbstract;
 
     public function delete(string $id): bool;
+
+    public function all(): Collection;
 }

@@ -23,4 +23,8 @@ class Animal extends AbstractModel
         'id_dono'
     ];
 
+    public function dono()
+    {
+        return $this->hasOne('App\Models\Dono', 'id', 'id_dono');
+    }
 }
