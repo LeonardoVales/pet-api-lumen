@@ -52,4 +52,16 @@ class AnimalController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
+
+    public function index(): JsonResponse
+    {        
+        try {
+            $teste = $this->animalService->all();
+            // dd($teste);
+
+            return response()->json($teste, 200); 
+        } catch(InvalidArgumentException $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
 }

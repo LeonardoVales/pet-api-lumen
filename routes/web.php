@@ -23,3 +23,4 @@ $router->post('/dono', 'DonoController@create');
 $router->post('/animal', 'AnimalController@create');
 $router->put('/animal/{id}', 'AnimalController@update');
 $router->delete('/animal/{id}', 'AnimalController@delete');
+$router->get('/animal', 'AnimalController@index');

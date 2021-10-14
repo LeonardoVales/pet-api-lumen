@@ -38,6 +38,7 @@ class AnimalRepository extends AbstractRepository implements AnimalRepositoryInt
 
     public function all(): Collection
     {
-        return parent::findAllWithRelationships(['dono']);
+        // return parent::findAllWithRelationships(['dono']);
+        return parent::findAll();
     }
 }

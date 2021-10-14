@@ -2,11 +2,14 @@
 
 namespace App\Services;
 
+use App\Dtos\AnimalDto;
 use App\Entities\Animal;
 use App\Entities\EntityAbstract;
 use App\Repositories\Contracts\AnimalRepositoryInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
+use App\ValueObjects\AnimaisLista;
 use App\ValueObjects\Especie;
+use Illuminate\Database\Eloquent\Collection;
 use InvalidArgumentException;
 
 class AnimalService
@@ -57,6 +60,30 @@ class AnimalService
         }
         
         return $this->animalRepository->delete($id);
+    }
+
+    public function all()
+    {
+        $animais = $this->animalRepository->all();
+
+        return $this->generateCollectAnimais($animais);
+
+    }
+
+    private function generateCollectAnimais(Collection $animais)
+    {
+        $entitiesCollection = collect();
+        foreach ($animais as $animal) {            
+            $entitieAnimal = $animal->getEntity();            
+            $entitieDono = $this->donoRepository->findEntity($entitieAnimal->getIdDono());
+
+            $arr = $entitieAnimal->jsonSerialize();
+            $arr["dono"] = $entitieDono->jsonSerialize();
+                  
+            $entitiesCollection->push($arr);
+        }
+        
+        return $entitiesCollection;
     }
 
     private function mapEntity(array $data): EntityAbstract
