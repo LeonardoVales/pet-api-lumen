@@ -16,6 +16,22 @@ abstract class AbstractRepository
         $this->model = $model;
     }
 
+    public function create(EntityAbstract $entity): EntityAbstract
+    {
+        $created = $this->model::create($entity->jsonSerialize());
+
+        return $created->getEntity();
+    }
+
+    public function update(EntityAbstract $entity): EntityAbstract
+    {
+        $model = $this->findModel($entity->getId());
+        $model->fill($entity->jsonSerialize());
+        $model->saveOrFail();
+
+        return $model->getEntity();
+    }
+
     public function findModel(string $id): ?AbstractModel
     {
         $model = $this->model::find($id);
@@ -52,8 +68,6 @@ abstract class AbstractRepository
 
     protected function findAllWithRelationships(array $relationships): Collection
     {
-        return $this->model
-            ->with($relationships)
-            ->get();
+        return $this->model->with($relationships)->get();
     }
 }

@@ -21,8 +21,7 @@ class AnimalController extends Controller
         try {
             $animalCreated = $this->animalService->create(
                 $request->getParams()->all()
-            );
-            
+            );            
             return response()->json($animalCreated->jsonSerialize(), 201); 
         } catch(InvalidArgumentException $e) {            
             return response()->json(['error' => $e->getMessage()]);

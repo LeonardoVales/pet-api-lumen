@@ -17,18 +17,12 @@ class AnimalRepository extends AbstractRepository implements AnimalRepositoryInt
 
     public function create(EntityAbstract $entity): EntityAbstract
     {
-        $animalCreated = $this->model::create($entity->jsonSerialize());
-        
-        return $animalCreated->getEntity();
+        return parent::create($entity);
     }
 
     public function update(EntityAbstract $entity): EntityAbstract
     {
-        $model = $this->findModel($entity->getId());
-        $model->fill($entity->jsonSerialize());
-        $model->saveOrFail();
-
-        return $model->getEntity();
+        return parent::update($entity);
     }
 
     public function delete(string $id): bool
@@ -38,7 +32,6 @@ class AnimalRepository extends AbstractRepository implements AnimalRepositoryInt
 
     public function all(): Collection
     {
-        // return parent::findAllWithRelationships(['dono']);
         return parent::findAll();
     }
 }
