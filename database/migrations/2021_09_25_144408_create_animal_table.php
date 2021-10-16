@@ -21,8 +21,6 @@ class CreateAnimalTable extends Migration
             $table->string('raca');
             $table->foreignUuid('id_dono')->references('id')->on('dono');
             $table->timestamps();
-
-            // $table->foreignUuid('id_dono')->references('id')->on('dono');
         });
     }
 

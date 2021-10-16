@@ -12,6 +12,7 @@ class Animal extends EntityAbstract
     private Especie $especie;
     private string $raca;
     private string $id_dono;
+    protected ?string $create_at;
 
     public function setNome(string $nome): void
     {
@@ -82,12 +83,24 @@ class Animal extends EntityAbstract
         if (isset($params['id'])) {
             $entity->setId($params['id']);
         }
-
+        
         $entity->setNome($params['nome']);
         $entity->setIdade($params['idade']);
         $entity->setEspecie(new Especie($params['especie']));
         $entity->setRaca($params['raca']);
         $entity->setIdDono($params['id_dono']);
+
+        if (isset($params['created_at'])) {
+            $entity->setCreatedAt($params['created_at']);
+        }
+
+        if (isset($params['updated_at'])) {
+            $entity->setUpdatedAt($params['updated_at']);
+        }
+
+        if (isset($params['deleted_at'])) {
+            $entity->setDeletedAt($params['deleted_at']);
+        }
 
         return $entity;
     }
