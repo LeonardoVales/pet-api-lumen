@@ -12,8 +12,7 @@ class Dono extends EntityAbstract
 
     public function setNome(string $nome)
     {
-        $this->nome = $nome;
-        // return $this;
+        $this->nome = $nome;        
     }
 
     public function getNome(): string
@@ -23,9 +22,7 @@ class Dono extends EntityAbstract
 
     public function setTelefone(Telefone $telefone)
     {
-        
         $this->telefone = $telefone;
-        // return $this;
     }
 
     public function getTelefone(): string
@@ -38,7 +35,11 @@ class Dono extends EntityAbstract
         return [
             'id' => $this->id ?? null,
             'nome' => $this->getNome(),
-            'telefone' => $this->getTelefone()
+            'telefone' => $this->getTelefone(),
+
+            'created_at' => $this->getCreatedAt(),
+            'updated_at' => $this->getUpdatedAt(),
+            'deleted_at' => $this->getDeletedAt()
         ];
     }    
 
@@ -52,6 +53,18 @@ class Dono extends EntityAbstract
         
         $entity->setNome($params['nome']);
         $entity->setTelefone(new Telefone($params['telefone']));
+
+        if (isset($params['created_at'])) {
+            $entity->setCreatedAt($params['created_at']);
+        }
+
+        if (isset($params['updated_at'])) {
+            $entity->setUpdatedAt($params['updated_at']);
+        }
+
+        if (isset($params['deleted_at'])) {
+            $entity->setDeletedAt($params['deleted_at']);
+        }
 
         return $entity;                
     }

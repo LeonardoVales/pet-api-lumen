@@ -12,7 +12,8 @@ class Animal extends EntityAbstract
     private Especie $especie;
     private string $raca;
     private string $id_dono;
-    protected ?string $create_at;
+    // protected ?string $create_at;
+    
 
     public function setNome(string $nome): void
     {

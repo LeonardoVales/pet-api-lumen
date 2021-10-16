@@ -86,7 +86,7 @@ class AnimalTest extends TestCase
 
     public function test_array_from_json_serialize()
     {
-        $animal = ModelAnimal::factory()->makeOne();        
+        $animal = ModelAnimal::factory()->makeOne();               
         $animalEntity = $animal->getEntity();
 
         $this->assertEmpty(

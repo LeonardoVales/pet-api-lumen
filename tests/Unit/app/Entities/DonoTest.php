@@ -1,6 +1,7 @@
 <?php
 
 use App\Entities\Dono;
+use App\Models\Dono as ModelDono;
 use App\ValueObjects\Telefone;
 use Ramsey\Uuid\Uuid;
 
@@ -46,5 +47,14 @@ class DonoTest extends TestCase
         $this->assertEquals($this->telefone, $entityDono->getTelefone());
     }
 
+    public function test_array_from_json_serialize()
+    {
+        $dono = ModelDono::factory()->makeOne();
+        
+        $donoEntity = $dono->getEntity();
 
+        $this->assertEmpty(
+            array_diff($dono->toArray(), $donoEntity->jsonSerialize())     
+        );
+    }
 }
