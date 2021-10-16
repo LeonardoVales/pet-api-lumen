@@ -28,7 +28,7 @@ abstract class EntityAbstract
 
     public function getCreatedAt(): ?string
     {
-        return $this->created_at;
+        return $this->created_at ?? null;
     }
 
     public function setUpdatedAt(string $updated_at = null): void
@@ -38,7 +38,7 @@ abstract class EntityAbstract
 
     public function getUpdatedAt(): ?string
     {
-        return $this->updated_at;
+        return $this->updated_at ?? null;
     }
 
     public function setDeletedAt(string $deleted_at = null): void
@@ -48,6 +48,6 @@ abstract class EntityAbstract
 
     public function getDeletedAt(): ?string
     {
-        return $this->deleted_at;
+        return $this->deleted_at ?? null;
     }
 }

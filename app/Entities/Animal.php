@@ -66,6 +66,7 @@ class Animal extends EntityAbstract
 
     public function jsonSerialize(): array
     {
+        // dd($this->getDeletedAt());
         return [
             'id' => $this->id ?? null,
             'nome' => $this->getNome(),
@@ -73,6 +74,10 @@ class Animal extends EntityAbstract
             'especie' => $this->getEspecie(),
             'raca' => $this->getRaca(),
             'id_dono' => $this->getIdDono(),
+
+            'created_at' => $this->getCreatedAt(),
+            'updated_at' => $this->getUpdatedAt(),
+            'deleted_at' => $this->getDeletedAt()
         ];
     }
 

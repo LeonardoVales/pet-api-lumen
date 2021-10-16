@@ -1,6 +1,7 @@
 <?php
 
 use App\Entities\Animal;
+use App\Models\Animal as ModelAnimal;
 use App\ValueObjects\Especie;
 use Ramsey\Uuid\Uuid;
 
@@ -81,5 +82,15 @@ class AnimalTest extends TestCase
         $this->assertEquals($this->created_at, $entityAnimal->getCreatedAt());
         $this->assertEquals($this->updated_at, $entityAnimal->getUpdatedAt());
         $this->assertEquals($this->deleted_at, $entityAnimal->getDeletedAt());
+    }
+
+    public function test_array_from_json_serialize()
+    {
+        $animal = ModelAnimal::factory()->makeOne();        
+        $animalEntity = $animal->getEntity();
+
+        $this->assertEmpty(
+            array_diff($animal->toArray(), $animalEntity->jsonSerialize())
+        );
     }
 }

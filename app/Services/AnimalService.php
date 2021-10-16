@@ -66,6 +66,7 @@ class AnimalService
     {
         $animais = $this->animalRepository->all();
 
+
         return $this->generateCollectAnimais($animais);
 
     }
@@ -73,8 +74,8 @@ class AnimalService
     private function generateCollectAnimais(Collection $animais)
     {
         $entitiesCollection = collect();
-        foreach ($animais as $animal) {            
-            $entitieAnimal = $animal->getEntity();            
+        foreach ($animais as $animal) {                        
+            $entitieAnimal = $animal->getEntity();  
             $entitieDono = $this->donoRepository->findEntity($entitieAnimal->getIdDono());
 
             $arr = $entitieAnimal->jsonSerialize();
