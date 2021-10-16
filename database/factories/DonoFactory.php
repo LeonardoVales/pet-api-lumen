@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Dono;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 
 class DonoFactory extends Factory
 {
@@ -23,7 +24,7 @@ class DonoFactory extends Factory
     public function definition()
     {
         return [
-            // 'id' => Uuid::uuid4(),
+            'id' => Uuid::uuid4(),
             'nome' => $this->faker->name,
             'telefone' => '31986623642',
             'created_at' => Carbon::now()->format(DATE_ISO8601),

@@ -23,10 +23,7 @@ class AnimalRepositoryTest extends TestCase
         $this->animalRepository = app(AnimalRepositoryInterface::class);
 
         $donoModel = Dono::factory()->create();
-        $this->donoEntity = $donoModel->getEntity();
-
-        // $this->createMultAnimals();
-                
+        $this->donoEntity = $donoModel->getEntity();                
     }
 
     public function test_create_deve_retornar_a_entidade_com_os_dados_do_animal()

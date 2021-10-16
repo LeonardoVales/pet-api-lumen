@@ -16,9 +16,16 @@ class DonoRepository extends AbstractRepository implements DonoRepositoryInterfa
 
     public function create(EntityAbstract $entity): EntityAbstract
     {        
-        $donoModel =  $this->model::create($entity->jsonSerialize());  
-        
-        return $donoModel->getEntity();
+        return parent::create($entity);
+    }
 
+    public function update(EntityAbstract $entity): EntityAbstract
+    {
+        return parent::update($entity);
+    }
+
+    public function delete(string $id): bool
+    {
+        return parent::deleteById($id);
     }
 }
