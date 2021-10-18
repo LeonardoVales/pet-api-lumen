@@ -6,7 +6,9 @@ use App\Entities\Dono;
 use App\Entities\EntityAbstract;
 use InvalidArgumentException;
 use App\Repositories\Contracts\DonoRepositoryInterface;
+use App\ValueObjects\DonoList;
 use App\ValueObjects\Telefone;
+use Illuminate\Database\Eloquent\Collection;
 
 class DonoService 
 {
@@ -43,6 +45,26 @@ class DonoService
         }
 
         return $this->donoRepository->delete($id);
+    }
+
+    public function all()
+    {
+        $donos = $this->donoRepository->all();
+
+        $teste = $this->generateDonoList($donos);
+
+        dd($teste);
+
+    }
+
+    private function generateDonoList(Collection $collectionsDono): DonoList
+    {
+        $donoList = new DonoList;
+        foreach ($collectionsDono as $collection) {
+            $donoList->add($collection->getEntity());
+        }
+
+        return $donoList;
     }
 
     private function mapEntity(array $data): EntityAbstract

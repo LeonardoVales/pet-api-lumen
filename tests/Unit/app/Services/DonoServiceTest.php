@@ -7,6 +7,8 @@ use App\Services\DonoService;
 use App\Models\Dono;
 use App\Entities\Dono as DonoEntity;
 use App\Entities\EntityAbstract;
+use Illuminate\Database\Eloquent\Collection;
+use PhpParser\ErrorHandler\Collecting;
 
 class DonoServiceTest extends TestCase
 {
@@ -105,5 +107,28 @@ class DonoServiceTest extends TestCase
         $donoDeleted = $donoService->delete($this->donoEntity->getId());
 
         $this->assertIsBool($donoDeleted);
+    }
+
+    public function test_all()
+    {
+        $this->donoRepositoryMock->method('all')->willReturn($this->generateCollectionDono());
+        
+        $donoService = new DonoService($this->donoRepositoryMock);
+        $list = $donoService->all();
+
+        dd('aqui');
+    }
+
+    private function generateCollectionDono(): Collection
+    {
+        $collection = new Collection([
+            Dono::factory()->makeOne(),
+            Dono::factory()->makeOne(),
+            Dono::factory()->makeOne(),
+            Dono::factory()->makeOne(),
+            Dono::factory()->makeOne(),
+        ]);
+
+        return $collection;
     }
 }
