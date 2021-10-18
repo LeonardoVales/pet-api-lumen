@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Requests\AnimalRequest;
 use App\Http\Controllers\Requests\DonoRequest;
 use App\Services\DonoService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use InvalidArgumentException;
 
 class DonoController extends Controller
 {
@@ -25,6 +27,19 @@ class DonoController extends Controller
         
         return response()->json($donoCreated->jsonSerialize(), 201);            
         } catch(Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function update(DonoRequest $request, $id)
+    {
+        try {
+            $this->donoService->update(
+                $request->getParams()->all(),
+                $id
+            );
+            return response()->json([], 204); 
+        } catch (InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
     }

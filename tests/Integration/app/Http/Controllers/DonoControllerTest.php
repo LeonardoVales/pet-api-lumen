@@ -37,6 +37,36 @@ class DonoControllerTest extends TestCase
         $request->assertResponseStatus(201);
     }
 
+    public function test_update_deve_retornar_status_204()
+    {
+        $donoModel = Dono::factory()->create();
+        $donoEntity = $donoModel->getEntity();
+    
+        $request = $this->put(
+            '/dono/'.$donoEntity->getId(),
+            $donoEntity->jsonSerialize()
+        );
+
+        $request->assertResponseStatus(204);
+    }
+
+    public function test_deve_atualizar_os_dados_do_dono()
+    {
+        $donoCreated = Dono::factory()->create();
+        $donoEntityCreated = $donoCreated->getEntity();
+
+        $donoUpdated = Dono::factory()->create();
+        $donoEntityUpdated = $donoUpdated->getEntity();
+        $donoEntityUpdated->setId($donoEntityCreated->getId());
+
+        $request = $this->put(
+            '/dono/'.$donoEntityUpdated->getId(),
+            $donoEntityUpdated->jsonSerialize()
+        );
+
+        dd('parou aqui');
+    }
+
     // public function test_create_deve_retornar_os_dados_do_dono()
     // {
     //     $data = [
