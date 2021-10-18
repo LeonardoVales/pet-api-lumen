@@ -109,14 +109,14 @@ class DonoServiceTest extends TestCase
         $this->assertIsBool($donoDeleted);
     }
 
-    public function test_all()
+    public function test_deve_listar_todos_os_donos_em_array()
     {
         $this->donoRepositoryMock->method('all')->willReturn($this->generateCollectionDono());
         
         $donoService = new DonoService($this->donoRepositoryMock);
-        $list = $donoService->all();
+        $donosList = $donoService->all();
 
-        dd('aqui');
+        $this->assertIsArray($donosList);
     }
 
     private function generateCollectionDono(): Collection

@@ -10,7 +10,7 @@ class DonoList implements \Countable
 
     public function add(EntityAbstract $dono): void
     {
-        $this->list[] = $dono;
+        $this->list[] = $dono->jsonSerialize();
     }
 
     public function count(): int

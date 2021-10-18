@@ -47,20 +47,19 @@ class DonoService
         return $this->donoRepository->delete($id);
     }
 
-    public function all()
+    public function all(): array
     {
         $donos = $this->donoRepository->all();
 
-        $teste = $this->generateDonoList($donos);
+        $donosList = $this->generateDonoList($donos);
 
-        dd($teste);
-
+        return $donosList->list;
     }
 
     private function generateDonoList(Collection $collectionsDono): DonoList
     {
         $donoList = new DonoList;
-        foreach ($collectionsDono as $collection) {
+        foreach ($collectionsDono as $collection) {                       
             $donoList->add($collection->getEntity());
         }
 
