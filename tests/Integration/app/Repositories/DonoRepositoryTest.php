@@ -89,6 +89,14 @@ class DonoRepositoryTest extends TestCase
         ]);
     }
 
+    public function test_deve_listar_todos_os_donos()
+    {
+        Dono::factory()->count(5)->create();
+        $donosLista = $this->donoRepository->all();
+
+        $this->assertCount(5, $donosLista);
+    }
+
     public function getFakeDonoEntity(string $action): EntityAbstract
     {
         if ($action == 'create') {

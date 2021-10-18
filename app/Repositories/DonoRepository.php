@@ -6,6 +6,7 @@ use App\Entities\EntityAbstract;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\Models\Dono;
 use App\Repositories\Contracts\AbstractRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class DonoRepository extends AbstractRepository implements DonoRepositoryInterface
 {
@@ -27,5 +28,10 @@ class DonoRepository extends AbstractRepository implements DonoRepositoryInterfa
     public function delete(string $id): bool
     {
         return parent::deleteById($id);
+    }
+
+    public function all(): Collection
+    {
+        return parent::findAll();
     }
 }
