@@ -31,13 +31,24 @@ class DonoController extends Controller
         }
     }
 
-    public function update(DonoRequest $request, $id)
+    public function update(DonoRequest $request, $id): JsonResponse
     {
         try {
             $this->donoService->update(
                 $request->getParams()->all(),
                 $id
             );
+            return response()->json([], 204); 
+        } catch (InvalidArgumentException $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function delete(string $id): JsonResponse
+    {
+        try {
+            $this->donoService->delete($id);
+
             return response()->json([], 204); 
         } catch (InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()]);

@@ -21,6 +21,7 @@ $router->get('/', function () use ($router) {
 $router->post('/dono', 'DonoController@create');
 $router->get('/dono', 'DonoController@index');
 $router->put('/dono/{id}', 'DonoController@update');
+$router->delete('/dono/{id}', 'DonoController@delete');
 
 $router->post('/animal', 'AnimalController@create');
 $router->put('/animal/{id}', 'AnimalController@update');

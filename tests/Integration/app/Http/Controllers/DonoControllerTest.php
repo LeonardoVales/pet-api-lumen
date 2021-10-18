@@ -32,9 +32,9 @@ class DonoControllerTest extends TestCase
             'nome' => $this->donoModel->nome,
             'telefone' => $this->donoModel->telefone
         ];
-        $request = $this->post('/dono', $data);
+        $response = $this->post('/dono', $data);
         
-        $request->assertResponseStatus(201);
+        $response->assertResponseStatus(201);
     }
 
     public function test_update_deve_retornar_status_204()
@@ -42,12 +42,12 @@ class DonoControllerTest extends TestCase
         $donoModel = Dono::factory()->create();
         $donoEntity = $donoModel->getEntity();
     
-        $request = $this->put(
+        $response = $this->put(
             '/dono/'.$donoEntity->getId(),
             $donoEntity->jsonSerialize()
         );
 
-        $request->assertResponseStatus(204);
+        $response->assertResponseStatus(204);
     }
 
     public function test_deve_atualizar_os_dados_do_dono()
@@ -59,22 +59,28 @@ class DonoControllerTest extends TestCase
         $donoEntityUpdated = $donoUpdated->getEntity();
         $donoEntityUpdated->setId($donoEntityCreated->getId());
 
-        $request = $this->put(
+        $response = $this->put(
             '/dono/'.$donoEntityUpdated->getId(),
             $donoEntityUpdated->jsonSerialize()
         );
 
-        dd('parou aqui');
+        $response->seeInDatabase('dono', [
+            'id' => $donoEntityUpdated->getId(),
+            'nome' => $donoEntityUpdated->getNome(),
+            'telefone' => $donoEntityUpdated->getTelefone(),
+        ]);
     }
 
-    // public function test_create_deve_retornar_os_dados_do_dono()
-    // {
-    //     $data = [
-    //         'nome' => $this->donoModel->nome,
-    //         'telefone' => $this->donoModel->telefone
-    //     ];
-    //     $request = $this->post('/dono', $data);
-    //     // dd($request);
-    //     $request->assertInstanceOf()
-    // }
+    public function test_deve_deletar_o_dono()
+    {
+        $donoCreated = Dono::factory()->create();
+        $donoEntityCreated = $donoCreated->getEntity();
+
+        $response = $this->delete('/dono/'.$donoEntityCreated->getId());
+        $response->assertResponseStatus(204);
+        $response->notSeeInDatabase('dono', [
+            'id' => $donoEntityCreated->getId(),
+            'deleted_at' => null
+        ]);
+    }
 }
