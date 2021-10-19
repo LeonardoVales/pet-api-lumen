@@ -14,4 +14,6 @@ interface AnimalRepositoryInterface
     public function delete(string $id): bool;
 
     public function all(): Collection;
+
+    public function find(string $id): EntityAbstract;
 }

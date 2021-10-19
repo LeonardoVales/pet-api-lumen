@@ -96,5 +96,18 @@ class AnimalControllerTest extends TestCase
             'id' => $animal->id,
             'deleted_at' => null
         ]);
-    }    
+    }
+    
+    public function test_deve_retornar_um_animal_pelo_id()
+    {
+        $donoModel = Dono::factory()->create();
+        $animal = Animal::factory()->create([
+            'id_dono' => $donoModel->id
+        ]);
+
+        $result = $this->get('/animal/'.$animal->id);
+        $result->seeJsonStructure([
+            'nome'
+        ]);
+    }
 }

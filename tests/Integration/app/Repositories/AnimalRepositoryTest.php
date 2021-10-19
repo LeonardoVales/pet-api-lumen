@@ -137,6 +137,23 @@ class AnimalRepositoryTest extends TestCase
         $this->assertInstanceOf(Dono::class, $animais[0]->dono);        
     }
 
+    public function test_deve_retornar_um_animal()
+    {
+        $animalModel = Animal::factory()->create([
+            'id_dono' => $this->donoEntity->getId()
+        ]);
+        $animalEntity = $animalModel->getEntity();
+
+        $animalEntityFind = $this->animalRepository->find($animalEntity->getId());
+
+        $this->assertInstanceOf(
+            EntityAbstract::class,            
+            $animalEntityFind
+        );
+
+        $this->assertEquals($animalEntityFind, $animalEntity);        
+    }
+
     private function getFakeAnimalEntity(): EntityAbstract
     {
         $animalModel = Animal::factory()->makeOne();

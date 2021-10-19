@@ -52,7 +52,7 @@ abstract class AbstractRepository
         return $model->getEntity();
     }
 
-    protected function deleteById($id): bool
+    protected function deleteById(string $id): bool
     {
         $model = $this->findModel($id);
         if (!$model) {

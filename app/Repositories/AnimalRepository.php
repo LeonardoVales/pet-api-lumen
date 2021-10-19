@@ -34,4 +34,9 @@ class AnimalRepository extends AbstractRepository implements AnimalRepositoryInt
     {
         return parent::findAll();
     }
+
+    public function find(string $id): EntityAbstract
+    {
+        return parent::findEntity($id);
+    }
 }

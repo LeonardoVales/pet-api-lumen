@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Animal;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Ramsey\Uuid\Uuid;
 
 class AnimalFactory extends Factory
 {
@@ -22,7 +23,8 @@ class AnimalFactory extends Factory
      */
     public function definition()
     {
-        return [            
+        return [    
+            'id' => Uuid::uuid4(),        
             'nome' => $this->faker->name,
             'idade' => 25,
             'especie' => 'Cachorro',

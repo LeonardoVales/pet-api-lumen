@@ -168,4 +168,40 @@ class AnimalServiceTest extends TestCase
         
         $animalService->delete('99999999');
     }
+
+    public function test_deve_retornar_excecao_se_o_animal_nao_existir_ao_consultar()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('O animal não foi encontrado');       
+
+        $this->animalRepository->method('findModel')->willReturn(null);
+
+        $animalService = new AnimalService(
+            $this->animalRepository, 
+            $this->donoRepositoryMock
+        );
+
+        $animalService->findById('99999999999');
+    }
+
+    public function test_deve_retornar_instancia_entidade_animal_ao_consultar()
+    {
+        $animalModel = Animal::factory()->makeOne();
+        $animalEntity = $animalModel->getEntity();
+
+        $this->animalRepository->method('findModel')->willReturn($animalModel);
+        $this->animalRepository->method('find')->willReturn($animalEntity);
+
+        $animalService = new AnimalService(
+            $this->animalRepository, 
+            $this->donoRepositoryMock
+        );
+
+        $animalFind = $animalService->findById($animalEntity->getId());
+
+        $this->assertInstanceOf(
+            EntityAbstract::class,
+            $animalFind
+        );
+    }
 }

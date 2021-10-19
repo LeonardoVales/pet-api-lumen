@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Dtos\AnimalDto;
 use App\Entities\Animal;
 use App\Entities\EntityAbstract;
+use App\Repositories\AnimalRepository;
 use App\Repositories\Contracts\AnimalRepositoryInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\AnimaisLista;
@@ -62,13 +63,20 @@ class AnimalService
         return $this->animalRepository->delete($id);
     }
 
+    public function findById(string $id): EntityAbstract
+    {
+        if (!$this->animalRepository->findModel($id)) {
+            throw new InvalidArgumentException('O animal não foi encontrado');
+        }
+
+        return $this->animalRepository->find($id);
+    }
+
     public function all()
     {
         $animais = $this->animalRepository->all();
 
-
         return $this->generateCollectAnimais($animais);
-
     }
 
     private function generateCollectAnimais(Collection $animais)

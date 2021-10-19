@@ -63,4 +63,15 @@ class AnimalController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
+
+    public function find(string $id): JsonResponse
+    {
+        try {
+            $animalEntity = $this->animalService->findById($id);
+            
+            return response()->json($animalEntity, 200); 
+        } catch (InvalidArgumentException $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
 }
