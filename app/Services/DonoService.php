@@ -50,7 +50,6 @@ class DonoService
     public function all(): array
     {
         $donos = $this->donoRepository->all();
-
         $donosList = $this->generateDonoList($donos);
 
         return $donosList->list;

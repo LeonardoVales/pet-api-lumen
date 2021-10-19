@@ -12,6 +12,7 @@ use App\ValueObjects\AnimaisLista;
 use App\ValueObjects\Especie;
 use Illuminate\Database\Eloquent\Collection;
 use InvalidArgumentException;
+use App\ValueObjects\AnimalList;
 
 class AnimalService
 {
@@ -75,24 +76,19 @@ class AnimalService
     public function all()
     {
         $animais = $this->animalRepository->all();
+        $animalList = $this->generateAnimalList($animais);
 
-        return $this->generateCollectAnimais($animais);
+        return $animalList->list;        
     }
 
-    private function generateCollectAnimais(Collection $animais)
+    private function generateAnimalList(Collection $collectionAnimal): AnimalList
     {
-        $entitiesCollection = collect();
-        foreach ($animais as $animal) {                        
-            $entitieAnimal = $animal->getEntity();  
-            $entitieDono = $this->donoRepository->findEntity($entitieAnimal->getIdDono());
-
-            $arr = $entitieAnimal->jsonSerialize();
-            $arr["dono"] = $entitieDono->jsonSerialize();
-                  
-            $entitiesCollection->push($arr);
+        $animalList = new AnimalList;
+        foreach ($collectionAnimal as $collection) {
+            $animalList->add($collection->getEntity());
         }
-        
-        return $entitiesCollection;
+
+        return $animalList;
     }
 
     private function mapEntity(array $data): EntityAbstract

@@ -106,8 +106,30 @@ class AnimalControllerTest extends TestCase
         ]);
 
         $result = $this->get('/animal/'.$animal->id);
+        $result->seeStatusCode(200);
         $result->seeJsonStructure([
-            'nome'
+            'id', 'nome', 'idade', 'especie', 
+            'raca', 'id_dono', 'created_at',
+            'updated_at', 'deleted_at'
+        ]);
+    }
+
+    public function test_deve_listar_todos_os_animais()
+    {
+        $donoModel = Dono::factory()->create();
+        Animal::factory()->count(5)->create([
+            'id_dono' => $donoModel->id
+        ]);
+
+        $result = $this->get('/animal');
+
+        $result->seeStatusCode(200);
+        $result->seeJsonStructure([
+            '*' => [
+                'id', 'nome', 'idade', 'especie', 
+                'raca', 'id_dono', 'created_at',
+                'updated_at', 'deleted_at'
+            ]
         ]);
     }
 }

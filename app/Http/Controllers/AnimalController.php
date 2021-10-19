@@ -55,10 +55,7 @@ class AnimalController extends Controller
     public function index(): JsonResponse
     {        
         try {
-            $teste = $this->animalService->all();
-            // dd($teste);
-
-            return response()->json($teste, 200); 
+            return response()->json($this->animalService->all(), 200); 
         } catch(InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
@@ -69,7 +66,7 @@ class AnimalController extends Controller
         try {
             $animalEntity = $this->animalService->findById($id);
             
-            return response()->json($animalEntity, 200); 
+            return response()->json($animalEntity->jsonSerialize(), 200); 
         } catch (InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
