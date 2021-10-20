@@ -2,13 +2,10 @@
 
 namespace App\Services;
 
-use App\Dtos\AnimalDto;
 use App\Entities\Animal;
 use App\Entities\EntityAbstract;
-use App\Repositories\AnimalRepository;
 use App\Repositories\Contracts\AnimalRepositoryInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
-use App\ValueObjects\AnimaisLista;
 use App\ValueObjects\Especie;
 use Illuminate\Database\Eloquent\Collection;
 use InvalidArgumentException;

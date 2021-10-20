@@ -4,10 +4,17 @@ namespace App\ValueObjects;
 
 use App\Entities\EntityAbstract;
 
-class AnimalList extends AbstractList
+class AnimalList
 {
-    public function add(EntityAbstract $entity): void
+    public array $list = [];
+
+    public function add(EntityAbstract $animal): void
     {
-        parent::add($entity);
+        $this->list[] = $animal->jsonSerialize();
+    }
+
+    public function count(): int
+    {
+        return count($this->list);
     }
 }
