@@ -18,3 +18,10 @@ Observações:
 
 # Instruções para rodar o projeto
 
+- Clonar
+- docker-compose up -d --build
+- Renomear o arquivo .env.example para .env
+- Acessar o container: docker-compose exec php-fpm bash
+- rodar o comando chmod -R ugo+rwx storage/ (por causa das permissões)
+- rodar o comando composer install (dentro do container)
+- rodar o comando php artisan migrate (dentro do container)
