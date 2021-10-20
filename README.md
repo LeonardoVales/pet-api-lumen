@@ -25,3 +25,7 @@ Observações:
 - rodar o comando chmod -R ugo+rwx storage/ (por causa das permissões)
 - rodar o comando composer install (dentro do container)
 - rodar o comando php artisan migrate (dentro do container)
+
+# Executando os testes unitários
+
+- De fora do contaienr rode o comando vendor/bin/phpunit  --testdox 
