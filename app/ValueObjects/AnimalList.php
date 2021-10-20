@@ -4,17 +4,10 @@ namespace App\ValueObjects;
 
 use App\Entities\EntityAbstract;
 
-class AnimalList implements \Countable
+class AnimalList extends AbstractList
 {
-    public array $list = [];
-
-    public function add(EntityAbstract $animal): void
+    public function add(EntityAbstract $entity): void
     {
-        $this->list[] = $animal->jsonSerialize();
-    }
-
-    public function count(): int
-    {
-        return count($this->list);
+        parent::add($entity);
     }
 }

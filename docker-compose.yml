@@ -46,7 +46,8 @@ services:
     php-fpm:
         build: phpdocker/php-fpm
         container_name: php-pet-api
-        working_dir: /application
+        working_dir: /application     
+        # command: /bin/bash "chmod -R ugo+rwx storage/"
         volumes:
             - '.:/application'
             - './phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini'

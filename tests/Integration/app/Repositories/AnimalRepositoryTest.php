@@ -126,17 +126,6 @@ class AnimalRepositoryTest extends TestCase
         $this->assertCount(15, $animais);         
     }
 
-    public function test_deve_listar_todos_os_animais_com_seus_donos()
-    {
-        Animal::factory()->count(1)->create([
-            'id_dono' => $this->donoEntity->getId()
-        ]);
-
-        $animais = $this->animalRepository->all();
-        
-        $this->assertInstanceOf(Dono::class, $animais[0]->dono);        
-    }
-
     public function test_deve_retornar_um_animal()
     {
         $animalModel = Animal::factory()->create([

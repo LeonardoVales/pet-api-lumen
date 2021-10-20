@@ -1,4 +1,5 @@
 FROM phpdockerio/php74-fpm:latest
+
 WORKDIR "/application"
 
 RUN apt-get update; \
@@ -22,9 +23,4 @@ RUN apt-get update; \
 
 
 # Atualizar permissões de log em arquivo
-RUN mkdir -p /storage/logs \
-    && rm -f /storage/logs/app.log \
-    && chmod -R 755 /storage \
-    && chown -R www-data:www-data /app/storage
-RUN touch /storage/logs/app.log \
-    && chown -R www-data: /storage
+# RUN chmod -R ugo+rwx application/storage/

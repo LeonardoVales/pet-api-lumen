@@ -82,7 +82,7 @@ class AnimalService
     }
 
     private function generateAnimalList(Collection $collectionAnimal): AnimalList
-    {
+    {        
         $animalList = new AnimalList;
         foreach ($collectionAnimal as $collection) {
             $animalList->add($collection->getEntity());
