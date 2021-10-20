@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Entities\EntityAbstract;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
@@ -11,6 +12,7 @@ use Carbon\Carbon;
 abstract class AbstractModel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
     public $incrementing = false;

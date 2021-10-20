@@ -16,4 +16,5 @@ Observações:
 - Deverá ser possível listar, visualizar, criar, editar e excluir animais de estimação de uma petshop.
 
 
-Qualquer dúvida fico a disposiçāo.
+# Instruções para rodar o projeto
+
