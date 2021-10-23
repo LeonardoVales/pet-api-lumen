@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Requests\AnimalRequest;
 use App\Http\Controllers\Requests\DonoRequest;
 use App\Services\DonoService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Fig\Http\Message\StatusCodeInterface;
 
 class DonoController extends Controller
 {
@@ -20,15 +19,14 @@ class DonoController extends Controller
     }
 
     public function create(DonoRequest $request): JsonResponse
-    {
+    {        
         try {
             $donoCreated = $this->donoService->create(
                 $request->getParams()
-            );    
-        
-        return response()->json($donoCreated->jsonSerialize(), 201);            
+            );            
+        return response()->json($donoCreated->jsonSerialize(), StatusCodeInterface::STATUS_CREATED);
         } catch(Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
         }
     }
 
@@ -36,9 +34,9 @@ class DonoController extends Controller
     {
         try {
             $this->donoService->update($request->getParams(), $id);
-            return response()->json([], 204); 
+            return response()->json([], StatusCodeInterface::STATUS_NO_CONTENT); 
         } catch (InvalidArgumentException $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
         }
     }
 
@@ -47,9 +45,9 @@ class DonoController extends Controller
         try {
             $this->donoService->delete($id);
 
-            return response()->json([], 204); 
+            return response()->json([], StatusCodeInterface::STATUS_NO_CONTENT); 
         } catch (InvalidArgumentException $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
         }
     }
 
@@ -58,9 +56,9 @@ class DonoController extends Controller
         try {
             $donoList = $this->donoService->all();
             
-            return response()->json($donoList, 200); 
+            return response()->json($donoList, StatusCodeInterface::STATUS_OK); 
         } catch(Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
         }
     }
 }
