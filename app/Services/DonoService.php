@@ -9,6 +9,7 @@ use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\DonoList;
 use App\ValueObjects\Telefone;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class DonoService 
 {
@@ -19,16 +20,16 @@ class DonoService
         $this->donoRepository = $donoRepository;
     }
 
-    public function create(array $data): EntityAbstract
+    public function create(Request $request): EntityAbstract
     {
-        $donoEntity = $this->mapEntity($data);
+        $donoEntity = $this->mapEntity($request);
 
         return $this->donoRepository->create($donoEntity);        
     }
 
-    public function update(array $data, string $id): EntityAbstract
+    public function update(Request $request, string $id): EntityAbstract
     {        
-        $dono = $this->mapEntity($data);
+        $dono = $this->mapEntity($request);
         $dono->setId($id);
 
         if (!$this->donoRepository->findEntity($id)) {
@@ -65,11 +66,11 @@ class DonoService
         return $donoList;
     }
 
-    private function mapEntity(array $data): EntityAbstract
+    private function mapEntity(Request $request): EntityAbstract
     {
         $donoEntity = new Dono;
-        $donoEntity->setNome($data['nome']);
-        $donoEntity->setTelefone(new Telefone($data['telefone']));
+        $donoEntity->setNome($request->input('nome'));
+        $donoEntity->setTelefone(new Telefone($request->input('telefone')));
 
         return $donoEntity;
     }

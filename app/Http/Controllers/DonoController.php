@@ -7,6 +7,7 @@ use App\Http\Controllers\Requests\DonoRequest;
 use App\Services\DonoService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use InvalidArgumentException;
 
 class DonoController extends Controller
@@ -22,7 +23,7 @@ class DonoController extends Controller
     {
         try {
             $donoCreated = $this->donoService->create(
-                $request->getParams()->all()
+                $request->getParams()
             );    
         
         return response()->json($donoCreated->jsonSerialize(), 201);            
@@ -34,10 +35,7 @@ class DonoController extends Controller
     public function update(DonoRequest $request, $id): JsonResponse
     {
         try {
-            $this->donoService->update(
-                $request->getParams()->all(),
-                $id
-            );
+            $this->donoService->update($request->getParams(), $id);
             return response()->json([], 204); 
         } catch (InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()]);

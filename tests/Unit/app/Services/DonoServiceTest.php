@@ -8,6 +8,7 @@ use App\Models\Dono;
 use App\Entities\Dono as DonoEntity;
 use App\Entities\EntityAbstract;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use PhpParser\ErrorHandler\Collecting;
 
 class DonoServiceTest extends TestCase
@@ -19,6 +20,7 @@ class DonoServiceTest extends TestCase
     private DonoEntity $donoEntity;
     private array $data;
     private $donoModel;
+    private Request $request;
 
     protected function setUp(): void
     {
@@ -33,14 +35,18 @@ class DonoServiceTest extends TestCase
 
         $this->donoService = new DonoService($this->donoRepositoryMock);
 
+        $this->request = new Request([
+            'nome' => $this->donoModel->nome,
+            'telefone' => $this->donoModel->telefone
+        ]);
     }
 
     public function test_create_deve_retornar_instancia_entidade_dono()
     {
-        $donoEntity = $this->donoService->create([
-            'nome' => $this->donoModel->nome,
-            'telefone' => $this->donoModel->telefone
-        ]);
+        $this->donoRepositoryMock->method('create')->willReturn($this->donoEntity);
+        $donoService = new DonoService($this->donoRepositoryMock);
+
+        $donoEntity = $donoService->create($this->request);
     
         $this->assertInstanceOf(
             EntityAbstract::class,
@@ -63,22 +69,21 @@ class DonoServiceTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('O dono não foi encontrado');
 
+        $this->donoRepositoryMock->method('update')->willReturn($this->donoEntity);
         $this->donoRepositoryMock->method('findEntity')->willReturn(null);
 
         $donoService = new DonoService($this->donoRepositoryMock);
-        $donoService->update(
-            $this->donoEntity->jsonSerialize(),
-            '9999999999999999999'
-        );
+        $donoService->update($this->request, '9999999');
     }
 
     public function test_deve_retornar_entidade_dono_ao_atualizar()
     {
         $this->donoRepositoryMock->method('findEntity')->willReturn($this->donoEntity);
+        $this->donoRepositoryMock->method('update')->willReturn($this->donoEntity);
 
         $donoService = new DonoService($this->donoRepositoryMock);
         $donoEntityUpdated = $donoService->update(
-            $this->donoEntity->jsonSerialize(),
+            $this->request,
             $this->donoEntity->getId()
         );
 
