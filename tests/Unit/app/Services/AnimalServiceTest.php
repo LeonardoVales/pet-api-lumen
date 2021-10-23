@@ -39,6 +39,8 @@ class AnimalServiceTest extends TestCase
         $this->donoEntity->setId(Uuid::uuid4());
         $this->animalEntity->setIdDono($this->donoEntity->getId()); 
 
+        // Lembrar de passar o with também !!!!
+        // Certificar que um determinado método será chamado !!
         $this->animalRepository = $this->createMock(AnimalRepository::class);
         $this->animalRepository->method('create')->willReturn($this->animalEntity);
         $this->animalRepository->method('update')->willReturn($this->animalEntity);
