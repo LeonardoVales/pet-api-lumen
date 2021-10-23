@@ -30,8 +30,6 @@ class DonoServiceTest extends TestCase
         $this->donoEntity = $this->donoModel->getEntity();
 
         $this->donoRepositoryMock = $this->createMock(DonoRepository::class);
-        $this->donoRepositoryMock->method('create')->willReturn($this->donoEntity);
-        $this->donoRepositoryMock->method('update')->willReturn($this->donoEntity);
 
         $this->donoService = new DonoService($this->donoRepositoryMock);
 
