@@ -58,8 +58,7 @@ class DonoTest extends TestCase
 
     public function test_array_from_json_serialize()
     {
-        $dono = ModelDono::factory()->makeOne();
-        
+        $dono = ModelDono::factory()->makeOne();        
         $donoEntity = $dono->getEntity();
 
         $this->assertEmpty(
