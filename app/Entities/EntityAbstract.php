@@ -21,7 +21,7 @@ abstract class EntityAbstract
         return $this->id;
     }
 
-    public function setCreatedAt(string $created_at = null): void
+    public function setCreatedAt(?string $created_at = null): void
     {
         $this->created_at = $created_at;
     }
@@ -31,7 +31,7 @@ abstract class EntityAbstract
         return $this->created_at ?? null;
     }
 
-    public function setUpdatedAt(string $updated_at = null): void
+    public function setUpdatedAt(?string $updated_at = null): void
     {
         $this->updated_at = $updated_at;
     }
@@ -41,9 +41,9 @@ abstract class EntityAbstract
         return $this->updated_at ?? null;
     }
 
-    public function setDeletedAt(string $deleted_at = null): void
+    public function setDeletedAt(?string $deleted_at = null): void
     {
-        $this->deleted_at = $deleted_at;
+        $this->deleted_at = $deleted_at ?? null;
     }
 
     public function getDeletedAt(): ?string

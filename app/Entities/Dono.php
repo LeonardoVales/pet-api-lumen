@@ -7,20 +7,20 @@ use App\ValueObjects\Telefone;
 
 class Dono extends EntityAbstract
 {
-    private string $nome;
-    private Telefone $telefone;
+    private ?string $nome;
+    private ?Telefone $telefone;
 
-    public function setNome(string $nome)
+    public function setNome(?string $nome)
     {
         $this->nome = $nome;        
     }
 
-    public function getNome(): string
+    public function getNome(): ?string
     {
         return $this->nome;
     }
 
-    public function setTelefone(Telefone $telefone)
+    public function setTelefone(?Telefone $telefone)
     {
         $this->telefone = $telefone;
     }
@@ -57,11 +57,11 @@ class Dono extends EntityAbstract
         if (isset($params['created_at'])) {
             $entity->setCreatedAt($params['created_at']);
         }
-
+        
         if (isset($params['updated_at'])) {
             $entity->setUpdatedAt($params['updated_at']);
         }
-
+        
         if (isset($params['deleted_at'])) {
             $entity->setDeletedAt($params['deleted_at']);
         }
