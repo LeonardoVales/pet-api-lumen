@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\Dono;
 use App\Entities\EntityAbstract;
+use App\Exceptions\DonoNotFoundException;
 use InvalidArgumentException;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\DonoList;
@@ -33,7 +34,7 @@ class DonoService
         $dono->setId($id);
 
         if (!$this->donoRepository->findEntity($id)) {
-            throw new InvalidArgumentException('O dono não foi encontrado');
+            throw new DonoNotFoundException;          
         }
 
         return $this->donoRepository->update($dono);
@@ -42,7 +43,7 @@ class DonoService
     public function delete(string $id): bool
     {
         if (!$this->donoRepository->findEntity($id)) {
-            throw new InvalidArgumentException('O dono não foi encontrado');
+            throw new DonoNotFoundException;
         }
 
         return $this->donoRepository->delete($id);

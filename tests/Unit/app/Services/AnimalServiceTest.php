@@ -3,6 +3,8 @@
 namespace Tests\Unit\App\Services;
 
 use App\Entities\EntityAbstract;
+use App\Exceptions\AnimalNotFoundException;
+use App\Exceptions\DonoNotFoundException;
 use App\Models\Animal;
 use App\Models\Dono;
 use App\Repositories\AnimalRepository;
@@ -52,7 +54,7 @@ class AnimalServiceTest extends TestCase
 
     public function test_deve_retornar_uma_excecao_se_o_animal_nao_existir_ao_atualizar()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(AnimalNotFoundException::class);
         $this->expectExceptionMessage('O animal não foi encontrado');
 
         $this->animalRepository->method('findEntity')->willReturn(null);
@@ -71,8 +73,8 @@ class AnimalServiceTest extends TestCase
 
     public function test_deve_retornar_uma_excecao_se_o_dono_do_animal_nao_existir_ao_cadastrar()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('O dono do animal não foi encontrado');
+        $this->expectException(DonoNotFoundException::class);
+        $this->expectExceptionMessage('O dono não foi encontrado');
                 
         $this->donoRepositoryMock->method('findEntity')->willReturn(null);
 
@@ -89,10 +91,9 @@ class AnimalServiceTest extends TestCase
 
     public function test_deve_retornar_uma_excecao_se_o_dono_do_animal_nao_existir_ao_atualizar()
     {        
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('O dono do animal não foi encontrado');
+        $this->expectException(DonoNotFoundException::class);
+        $this->expectExceptionMessage('O dono não foi encontrado');
 
-        // $this->animalRepository->method('update')->willReturn($this->animalEntity);
         $this->animalRepository->method('findEntity')->willReturn($this->animalEntity);
         $this->donoRepositoryMock->method('findEntity')->willReturn(null);                
 
@@ -158,7 +159,7 @@ class AnimalServiceTest extends TestCase
 
     public function test_deve_retornar_excecao_se_o_animal_nao_existir_ao_deletar()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(AnimalNotFoundException::class);
         $this->expectExceptionMessage('O animal não foi encontrado');       
 
         $this->animalRepository->method('findModel')->willReturn(null);
@@ -173,7 +174,7 @@ class AnimalServiceTest extends TestCase
 
     public function test_deve_retornar_excecao_se_o_animal_nao_existir_ao_consultar()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(AnimalNotFoundException::class);
         $this->expectExceptionMessage('O animal não foi encontrado');       
 
         $this->animalRepository->method('findModel')->willReturn(null);

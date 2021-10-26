@@ -7,6 +7,7 @@ use App\Services\DonoService;
 use App\Models\Dono;
 use App\Entities\Dono as DonoEntity;
 use App\Entities\EntityAbstract;
+use App\Exceptions\DonoNotFoundException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use PhpParser\ErrorHandler\Collecting;
@@ -64,7 +65,7 @@ class DonoServiceTest extends TestCase
 
     public function test_deve_retornar_uma_excecao_se_o_dono_nao_existir_ao_atualizar()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(DonoNotFoundException::class);
         $this->expectExceptionMessage('O dono não foi encontrado');
 
         $this->donoRepositoryMock->method('update')->willReturn($this->donoEntity);
@@ -93,7 +94,7 @@ class DonoServiceTest extends TestCase
 
     public function test_deve_retornar_uma_excecao_se_o_dono_nao_existir_ao_deletar()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(DonoNotFoundException::class);
         $this->expectExceptionMessage('O dono não foi encontrado');  
         
         $this->donoRepositoryMock->method('findEntity')->willReturn(null);

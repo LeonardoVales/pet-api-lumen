@@ -26,7 +26,7 @@ class DonoController extends Controller
             );            
         return response()->json($donoCreated->jsonSerialize(), StatusCodeInterface::STATUS_CREATED);
         } catch(Exception $e) {
-            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
     }
 
@@ -35,8 +35,8 @@ class DonoController extends Controller
         try {
             $this->donoService->update($request->getParams(), $id);
             return response()->json([], StatusCodeInterface::STATUS_NO_CONTENT); 
-        } catch (InvalidArgumentException $e) {
-            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
     }
 
@@ -46,8 +46,8 @@ class DonoController extends Controller
             $this->donoService->delete($id);
 
             return response()->json([], StatusCodeInterface::STATUS_NO_CONTENT); 
-        } catch (InvalidArgumentException $e) {
-            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
     }
 
@@ -58,7 +58,7 @@ class DonoController extends Controller
             
             return response()->json($donoList, StatusCodeInterface::STATUS_OK); 
         } catch(Exception $e) {
-            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
     }
 }

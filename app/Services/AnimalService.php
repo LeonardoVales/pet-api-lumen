@@ -4,11 +4,12 @@ namespace App\Services;
 
 use App\Entities\Animal;
 use App\Entities\EntityAbstract;
+use App\Exceptions\AnimalNotFoundException;
+use App\Exceptions\DonoNotFoundException;
 use App\Repositories\Contracts\AnimalRepositoryInterface;
 use App\Repositories\Contracts\DonoRepositoryInterface;
 use App\ValueObjects\Especie;
 use Illuminate\Database\Eloquent\Collection;
-use InvalidArgumentException;
 use App\ValueObjects\AnimalList;
 
 class AnimalService
@@ -30,7 +31,7 @@ class AnimalService
         $animal = $this->mapEntity($data);
                 
         if (!$this->donoRepository->findEntity($animal->getIdDono())) {
-            throw new InvalidArgumentException('O dono do animal não foi encontrado');
+            throw new DonoNotFoundException;
         }
         
         return $this->animalRepository->create($animal);
@@ -42,11 +43,11 @@ class AnimalService
         $animal->setId($id);
 
         if (!$this->animalRepository->findEntity($id)) {
-            throw new InvalidArgumentException('O animal não foi encontrado');
+            throw new AnimalNotFoundException;            
         }
 
         if (!$this->donoRepository->findEntity($animal->getIdDono())) {
-            throw new InvalidArgumentException('O dono do animal não foi encontrado');            
+            throw new DonoNotFoundException;
         }
 
         return $this->animalRepository->update($animal);
@@ -55,7 +56,7 @@ class AnimalService
     public function delete(string $id): bool
     {
         if (!$this->animalRepository->findModel($id)) {
-            throw new InvalidArgumentException('O animal não foi encontrado');
+            throw new AnimalNotFoundException;
         }
         
         return $this->animalRepository->delete($id);
@@ -64,7 +65,7 @@ class AnimalService
     public function findById(string $id): EntityAbstract
     {
         if (!$this->animalRepository->findModel($id)) {
-            throw new InvalidArgumentException('O animal não foi encontrado');
+            throw new AnimalNotFoundException;
         }
 
         return $this->animalRepository->find($id);

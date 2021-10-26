@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Requests\AnimalRequest;
 use App\Services\AnimalService;
-use InvalidArgumentException;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Fig\Http\Message\StatusCodeInterface;
 
@@ -24,8 +24,8 @@ class AnimalController extends Controller
                 $request->getParams()->all()
             );            
             return response()->json($animalCreated->jsonSerialize(), StatusCodeInterface::STATUS_CREATED); 
-        } catch(InvalidArgumentException $e) {            
-            return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
+        } catch(Exception $e) {            
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
     }
 
@@ -37,7 +37,7 @@ class AnimalController extends Controller
                 $id
             );
             return response()->json([], StatusCodeInterface::STATUS_NO_CONTENT); 
-        } catch(InvalidArgumentException $e) {
+        } catch(Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
         }
     }
@@ -48,7 +48,7 @@ class AnimalController extends Controller
             $this->animalService->delete($id);
             
             return response()->json([], StatusCodeInterface::STATUS_NO_CONTENT); 
-        } catch(InvalidArgumentException $e) {
+        } catch(Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
     }
@@ -57,7 +57,7 @@ class AnimalController extends Controller
     {        
         try {
             return response()->json($this->animalService->all(), StatusCodeInterface::STATUS_OK); 
-        } catch(InvalidArgumentException $e) {
+        } catch(Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
         }
     }
@@ -68,7 +68,7 @@ class AnimalController extends Controller
             $animalEntity = $this->animalService->findById($id);
             
             return response()->json($animalEntity->jsonSerialize(), StatusCodeInterface::STATUS_OK); 
-        } catch (InvalidArgumentException $e) {
+        } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCodeInterface::STATUS_BAD_REQUEST);
         }
     }
