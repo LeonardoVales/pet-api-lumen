@@ -25,7 +25,7 @@ class ServicoModelFactory extends Factory
     {
         return [
             'id' => Uuid::uuid4(),
-            'nome' => $this->faker->title,
+            'nome' => $this->faker->name,
             'created_at' => Carbon::now()->format(DATE_ISO8601),
             'updated_at' => Carbon::tomorrow()->format(DATE_ISO8601)
         ];

@@ -96,8 +96,7 @@ class AnimalRepositoryTest extends TestCase
         
         $this->assertTrue(
             $this->animalRepository->delete($animalEntity->getId())
-        );
-        
+        );        
     }
 
     public function test_soft_delete()

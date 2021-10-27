@@ -17,6 +17,7 @@ class CreateServicoTable extends Migration
             $table->uuid('id')->primary();
             $table->string('nome');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
