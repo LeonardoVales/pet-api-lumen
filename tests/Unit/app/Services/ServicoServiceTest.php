@@ -128,10 +128,8 @@ class ServicoServiceTest extends TestCase
 
         /** @var \Mockery\MockInterface|ServicoRepository */        
         $servicoRepository = $this->createMock(ServicoRepository::class);
-        $servicoRepository->method('update')
-            ->willReturn($servicoEntity);
-        $servicoRepository->method('findEntity')
-            ->willReturn($servicoEntity);
+        $servicoRepository->method('update')->willReturn($servicoEntity);
+        $servicoRepository->method('findEntity')->willReturn($servicoEntity);
 
         $servicoRepository->expects($this->once())
             ->method('findEntity')
@@ -139,5 +137,101 @@ class ServicoServiceTest extends TestCase
 
         $service = new ServicoService($servicoRepository);
         $service->update($request, $servicoEntity->getId());
+    }
+
+    public function test_deve_chamar_o_metodo_delete_ao_deletar()
+    {
+        $servicoModel = ServicoModel::factory()->makeOne();     
+        $servicoEntity = $servicoModel->getEntity();
+
+        /** @var \Mockery\MockInterface|ServicoRepository */        
+        $servicoRepository = $this->createMock(ServicoRepository::class);
+        $servicoRepository->method('findEntity')->willReturn($servicoEntity);
+        
+        $servicoRepository->expects($this->once())
+            ->method('delete')
+            ->with($servicoEntity->getId());
+
+        $service = new ServicoService($servicoRepository);
+        $service->delete($servicoEntity->getId());
+    }
+
+    public function test_deve_retornar_uma_excecao_se_o_servico_nao_existir_ao_deletear()
+    {
+        $this->expectException(ServicoNotFoundException::class);
+        $this->expectExceptionMessage('O tipo de serviço não foi encontrado');       
+
+        /** @var \Mockery\MockInterface|ServicoRepository */ 
+        $servicoRepository = $this->createMock(ServicoRepository::class);
+        $servicoRepository->method('findEntity')->willReturn(null);
+
+        $service = new ServicoService($servicoRepository);
+        $service->delete('9999');
+    }
+
+    public function test_deve_ser_possivel_listar_todos_os_tipos_de_servico()
+    {
+        $servicosModel = ServicoModel::factory()->count(5)->make();
+
+        /** @var \Mockery\MockInterface|ServicoRepository */ 
+        $servicoRepository = $this->createMock(ServicoRepository::class);
+        $servicoRepository->method('all')->willReturn($servicosModel);
+
+        $service = new ServicoService($servicoRepository);
+        $result = $service->all();
+
+        $this->assertIsArray($result);
+        $this->assertCount(5, $result);
+    }
+
+    public function test_deve_chamar_o_repositorio_para_listar()
+    {
+        $servicosModel = ServicoModel::factory()->count(5)->make();
+
+            /** @var \Mockery\MockInterface|ServicoRepository */        
+        $servicoRepository = $this->createMock(ServicoRepository::class);
+        $servicoRepository
+            ->expects($this->once())
+            ->method('all')
+            ->willReturn($servicosModel);
+
+        $service = new ServicoService($servicoRepository);
+        $service->all();
+    }
+
+    public function test_deve_ser_possivel_retornar_um_tipo_de_servico()
+    {
+        $servicoModel = ServicoModel::factory()->make();
+        $servicoEntity = $servicoModel->getEntity();
+        
+        /** @var \Mockery\MockInterface|ServicoRepository */        
+        $servicoRepository = $this->createMock(ServicoRepository::class);
+        $servicoRepository
+            ->expects($this->once())
+            ->method('findModel')
+            ->willReturn($servicoModel)
+            ->with($servicoEntity->getId());
+
+        $servicoRepository
+            ->expects($this->once())
+            ->method('find')
+            ->willReturn($servicoEntity)
+            ->with($servicoEntity->getId());
+
+        $service = new ServicoService($servicoRepository);
+        $service->findById($servicoEntity->getId()); 
+    }
+
+    public function test_deve_retornar_uma_excecao_se_o_servico_nao_existir_ao_consultar()
+    {
+        $this->expectException(ServicoNotFoundException::class);
+        $this->expectExceptionMessage('O tipo de serviço não foi encontrado'); 
+    
+        /** @var \Mockery\MockInterface|ServicoRepository */        
+        $servicoRepository = $this->createMock(ServicoRepository::class);
+        $servicoRepository->method('findModel')->willReturn(null);      
+
+        $service = new ServicoService($servicoRepository);
+        $service->findById('9999'); 
     }
 }

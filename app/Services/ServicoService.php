@@ -6,7 +6,9 @@ use App\Entities\EntityAbstract;
 use App\Entities\ServicoEntity;
 use App\Exceptions\ServicoNotFoundException;
 use App\Repositories\Contracts\ServicoRepositoryInterface;
+use App\ValueObjects\ServicoList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ServicoService
 {
@@ -34,6 +36,42 @@ class ServicoService
         $servico->setId($id);
 
         return $this->servicoRepository->update($servico);
+    }
+
+    public function delete(string $id): bool
+    {
+        if (!$this->servicoRepository->findEntity($id)) {
+            throw new ServicoNotFoundException;
+        }
+
+        return $this->servicoRepository->delete($id);
+    }
+
+    public function all(): array
+    {
+        $models = $this->servicoRepository->all();
+        $servicosList = $this->generateServicoList($models);
+
+        return $servicosList->list;
+    }
+
+    public function findByid(string $id): EntityAbstract
+    {
+        if (!$this->servicoRepository->findModel($id)) {
+            throw new ServicoNotFoundException;
+        }
+
+        return $this->servicoRepository->find($id);
+    }
+
+    private function generateServicoList(Collection $collectionsServico): ServicoList
+    {
+        $servicoList = new ServicoList;
+        foreach ($collectionsServico as $collection) {
+            $servicoList->add($collection->getEntity());
+        }
+
+        return $servicoList;
     }
 
     private function mapEntity(Request $request): EntityAbstract
