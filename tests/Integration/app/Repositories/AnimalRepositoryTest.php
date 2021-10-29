@@ -27,8 +27,7 @@ class AnimalRepositoryTest extends TestCase
     }
 
     public function test_create_deve_retornar_a_entidade_com_os_dados_do_animal()
-    {
-        
+    {        
         $animalModel = Animal::factory()->makeOne();
         $animalEntity = $animalModel->getEntity();
         $animalEntity->setIdDono($this->donoEntity->getId());
