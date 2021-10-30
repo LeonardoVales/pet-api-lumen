@@ -17,7 +17,7 @@ abstract class AbstractRepository
     }
 
     public function create(EntityAbstract $entity): EntityAbstract
-    {
+    {        
         $created = $this->model::create($entity->jsonSerialize());
 
         return $created->getEntity();

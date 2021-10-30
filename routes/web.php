@@ -29,3 +29,9 @@ $router->put('/animal/{id}', 'AnimalController@update');
 $router->delete('/animal/{id}', 'AnimalController@delete');
 $router->get('/animal', 'AnimalController@index');
 $router->get('/animal/{id}', 'AnimalController@find');
+
+$router->post('/servico', 'ServicoController@create');
+$router->put('/servico/{id}', 'ServicoController@update');
+$router->delete('/servico/{id}', 'ServicoController@delete');
+$router->get('/servicos', 'ServicoController@index');
+$router->get('/servico/{id}', 'ServicoController@findById');

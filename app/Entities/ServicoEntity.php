@@ -19,7 +19,7 @@ class ServicoEntity extends EntityAbstract
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->id ?? null,
             'nome' => $this->nome,
 
             'created_at' => $this->getCreatedAt(),

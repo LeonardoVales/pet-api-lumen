@@ -20,7 +20,7 @@ class ServicoService
     }
 
     public function create(Request $request): EntityAbstract
-    {
+    {        
         $servicoEntity = $this->mapEntity($request);
         
         return $this->servicoRepository->create($servicoEntity);
@@ -78,7 +78,7 @@ class ServicoService
     {
         $servicoEntity = new ServicoEntity;
         $servicoEntity->setNome($request->input('nome'));
-        
+
         return $servicoEntity;
     }
 }
