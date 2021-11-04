@@ -15,6 +15,15 @@ Observações:
 - Neste momento, nāo é necessário autenticaçāo.
 - Deverá ser possível listar, visualizar, criar, editar e excluir animais de estimação de uma petshop.
 
+# Parte 2
+[x] Cadastro de Serviço
+[ ] Cadastro de funcionário
+[ ] Vínculo entre tipo de serviço e funcionário
+[ ] Disponibilidade de funcionários em dias e horários para realização de serviços
+[ ] Retornar a agenda dos funcionários por dia
+[ ] Criar o agendamento
+
+
 Feature: Agendamento de Serviços
 
 O Petshop no futuro possuirá venda de produtos como raçāo, potes para rações, mas precisamos começar pelo agendamento de Serviços, para que possamos começar a agregar valor.
